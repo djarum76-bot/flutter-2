@@ -11,6 +11,7 @@ dependencies:
   get_storage: 2.0.3
   google_fonts: 2.2.0
   dio: 4.0.4
+  curved_navigation_bar: 1.0.1
   flutter: 
     sdk: flutter
 
@@ -19,8 +20,8 @@ dev_dependencies:
   flutter_test: 
     sdk: flutter
 
-flutter:
-  assets:
+flutter: 
+  assets: 
     - asset/
   uses-material-design: true
 

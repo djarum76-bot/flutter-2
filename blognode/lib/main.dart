@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget{
         )
       ),
       title: "Application",
-      initialRoute: Routes.WELCOME,
+      initialRoute: authC.box.read('token') == null ? Routes.WELCOME : Routes.NAVBAR,
       getPages: AppPages.routes,
     );
   }

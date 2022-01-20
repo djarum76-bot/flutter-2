@@ -11,7 +11,7 @@ class SignupController extends GetxController {
   final globalkey = GlobalKey<FormState>();
 
   late TextEditingController usernameController;
-  // late TextEditingController emailController;
+  late TextEditingController emailController;
   late TextEditingController passwordController;
 
   final authC = Get.find<AuthController>();
@@ -21,7 +21,7 @@ class SignupController extends GetxController {
     // TODO: implement onInit
     super.onInit();
     usernameController = TextEditingController();
-    // emailController = TextEditingController();
+    emailController = TextEditingController();
     passwordController = TextEditingController();
   }
 
@@ -30,7 +30,7 @@ class SignupController extends GetxController {
     // TODO: implement dispose
     super.dispose();
     usernameController.dispose();
-    // emailController.dispose();
+    emailController.dispose();
     passwordController.dispose();
   }
 
@@ -38,25 +38,57 @@ class SignupController extends GetxController {
     final form = globalkey.currentState;
     if (form!.validate()) {
       form.save();
-      login();
+      register();
     }
   }
 
-  login()async{
-    var params =  {
-      "username": usernameController.text,
-      "password": passwordController.text
-    };
+  register()async{
+    try{
+      var params =  {
+        "username": usernameController.text,
+        "email": emailController.text,
+        "password": passwordController.text
+      };
 
-    final response = await dio.post("/user/login",
-        data: jsonEncode(params)
-    );
+      final response = await dio.post("/user/register",
+          data: jsonEncode(params)
+      );
 
-    final data = response.data;
+      final data = response.data;
 
-    if(response.statusCode == 200){
-      print(data);
-      Get.offAllNamed(Routes.HOME);
+      if(response.statusCode == 200){
+        var paramsLogin =  {
+          "username": usernameController.text,
+          "password": passwordController.text
+        };
+
+        final responseLogin = await dio.post("/user/login",
+            data: jsonEncode(paramsLogin)
+        );
+
+        final dataLogin = responseLogin.data;
+
+        if(responseLogin.statusCode == 200){
+          authC.box.write('token', "Bearer ${dataLogin["token"]}");
+          authC.box.write('username', "${dataLogin["data"]["username"]}");
+          Get.offAllNamed(Routes.NAVBAR);
+        }else{
+          Get.defaultDialog(
+              title: "Error",
+              middleText: "${dataLogin["status"]}"
+          );
+        }
+      }else{
+        Get.defaultDialog(
+            title: "Error",
+            middleText: "${data["status"]}"
+        );
+      }
+    }on Dio.DioError catch(e){
+      Get.defaultDialog(
+          title: "Error",
+          middleText: "Akun sudah ada"
+      );
     }
   }
 }

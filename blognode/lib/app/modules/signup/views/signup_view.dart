@@ -58,31 +58,31 @@ class SignupView extends GetView<SignupController> {
                   ],
                 ),
               ),
-              // Padding(
-              //   padding: EdgeInsets.symmetric(horizontal: Get.height * 0.04901960784, vertical: Get.height * 0.01225490196),
-              //   child: Column(
-              //     children: [
-              //       Text("Email"),
-              //       TextFormField(
-              //         controller: controller.emailController,
-              //         validator: (value) {
-              //           if (value!.isEmpty) return "Email can't be empty";
-              //           if (!value.contains("@")) return "Email is Invalid";
-              //           return null;
-              //         },
-              //         onSaved: (String? e) => controller.emailController.text = e!,
-              //         decoration: InputDecoration(
-              //           focusedBorder: UnderlineInputBorder(
-              //             borderSide: BorderSide(
-              //               color: Colors.black,
-              //               width: 2,
-              //             ),
-              //           ),
-              //         ),
-              //       )
-              //     ],
-              //   ),
-              // ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: Get.height * 0.04901960784, vertical: Get.height * 0.01225490196),
+                child: Column(
+                  children: [
+                    Text("Email"),
+                    TextFormField(
+                      controller: controller.emailController,
+                      validator: (value) {
+                        if (value!.isEmpty) return "Email can't be empty";
+                        if (!value.contains("@")) return "Email is Invalid";
+                        return null;
+                      },
+                      onSaved: (String? e) => controller.emailController.text = e!,
+                      decoration: InputDecoration(
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.black,
+                            width: 2,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: Get.height * 0.04901960784, vertical: Get.height * 0.01225490196),
                 child: Column(

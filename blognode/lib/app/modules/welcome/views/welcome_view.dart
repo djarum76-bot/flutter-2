@@ -1,3 +1,4 @@
+import 'package:blognode/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -79,7 +80,9 @@ class WelcomeView extends GetView<WelcomeController> {
                             ),
                             SizedBox(width: 10,),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Get.toNamed(Routes.SIGNIN);
+                              },
                               child: Text(
                                 "Sign In",
                                 style: TextStyle(

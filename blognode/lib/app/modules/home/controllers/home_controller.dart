@@ -1,20 +1,12 @@
+import 'package:blognode/app/routes/app_pages.dart';
+import 'package:blognode/app/services/auth_controller.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
+  final authC = Get.find<AuthController>();
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  logout()async{
+    authC.box.remove('token');
+    Get.offAllNamed(Routes.WELCOME);
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {}
-  void increment() => count.value++;
 }
