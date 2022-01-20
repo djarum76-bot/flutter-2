@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "900164332777",
+    "project_id": "upload-files-deb24",
+    "storage_bucket": "upload-files-deb24.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:900164332777:android:607273aeca87fdb7009478",
+        "android_client_info": {
+          "package_name": "com.example.untitled2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "900164332777-oiakk6a1dkgvsbh8mmgi8ieaibfav922.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZUASxnvKppejR8ObQbghsNYheKwoNV_g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "900164332777-oiakk6a1dkgvsbh8mmgi8ieaibfav922.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

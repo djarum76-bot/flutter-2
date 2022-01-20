@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "297190765685",
+    "project_id": "chatapp-c4497",
+    "storage_bucket": "chatapp-c4497.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:297190765685:android:1926d37dff203f430e343c",
+        "android_client_info": {
+          "package_name": "com.habil.chatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "297190765685-vhrtsimpkckohviqg3gdgvlqqbuqp3qh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.habil.chatapp",
+            "certificate_hash": "503fbc8fe4d3d6677cdb5bdb6ab08ce61cc98475"
+          }
+        },
+        {
+          "client_id": "297190765685-loo8e8mr51gftg2ut7ktj8ls8mo18vhj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDP_rP5O815QxvFamK1i-NHv9xpx-8-Ldc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "297190765685-loo8e8mr51gftg2ut7ktj8ls8mo18vhj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

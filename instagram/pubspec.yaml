@@ -1,0 +1,38 @@
+name: instagram
+version: 1.0.0+1
+publish_to: none
+description: A new Flutter project.
+environment: 
+  sdk: '>=2.15.0 <3.0.0'
+
+dependencies: 
+  cupertino_icons: ^1.0.2
+  get: 4.6.1
+  google_ui: 2.7.0
+  avatar_glow: 2.0.2
+  google_fonts: 2.2.0
+  line_icons: 2.0.1
+  curved_navigation_bar: 1.0.1
+  dashed_circle: 0.0.2
+  image_picker: ^0.8.4+4
+  animated_text_kit: ^4.2.1
+  flutter_custom_clippers: ^2.0.0
+  flutter_spinkit: ^5.1.0
+  dio: 4.0.4
+  get_storage: 2.0.3
+  intl: 0.17.0
+  timeago: 3.1.0
+  story: 0.6.0
+  flutter: 
+    sdk: flutter
+
+dev_dependencies: 
+  flutter_lints: ^1.0.0
+  flutter_test: 
+    sdk: flutter
+
+flutter: 
+  assets: 
+    - asset/
+  uses-material-design: true
+
