@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import 'package:blognode/app/modules/add_blog/bindings/add_blog_binding.dart';
 import 'package:blognode/app/modules/add_blog/views/add_blog_view.dart';
+import 'package:blognode/app/modules/create_profile/bindings/create_profile_binding.dart';
+import 'package:blognode/app/modules/create_profile/views/create_profile_view.dart';
 import 'package:blognode/app/modules/forgotpassword/bindings/forgotpassword_binding.dart';
 import 'package:blognode/app/modules/forgotpassword/views/forgotpassword_view.dart';
 import 'package:blognode/app/modules/home/bindings/home_binding.dart';
@@ -62,6 +64,11 @@ class AppPages {
       name: _Paths.ADD_BLOG,
       page: () => AddBlogView(),
       binding: AddBlogBinding(),
+    ),
+    GetPage(
+      name: _Paths.CREATE_PROFILE,
+      page: () => CreateProfileView(),
+      binding: CreateProfileBinding(),
     ),
   ];
 }

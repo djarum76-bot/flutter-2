@@ -12,6 +12,7 @@ abstract class Routes {
   static const NAVBAR = _Paths.NAVBAR;
   static const PROFILE = _Paths.PROFILE;
   static const ADD_BLOG = _Paths.ADD_BLOG;
+  static const CREATE_PROFILE = _Paths.CREATE_PROFILE;
 }
 
 abstract class _Paths {
@@ -23,4 +24,5 @@ abstract class _Paths {
   static const NAVBAR = '/navbar';
   static const PROFILE = '/profile';
   static const ADD_BLOG = '/add-blog';
+  static const CREATE_PROFILE = '/create-profile';
 }
