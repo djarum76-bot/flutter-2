@@ -5,16 +5,17 @@ import 'package:blognode/app/modules/navbar/controllers/navbar_controller.dart';
 import 'package:blognode/app/routes/app_pages.dart';
 import 'package:blognode/app/services/auth_controller.dart';
 import 'package:dio/dio.dart' as Dio;
+import 'package:http/http.dart' as http;
+import 'package:path/path.dart' as path;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
+import 'package:async/async.dart';
 
 class CreateProfileController extends GetxController {
-  var selectedImagePath = "".obs;
+  // var selectedImagePath = "".obs;
   final pp = "".obs;
-
-  final globalkey = GlobalKey<FormState>();
 
   late TextEditingController name;
   late TextEditingController profession;
@@ -23,6 +24,7 @@ class CreateProfileController extends GetxController {
   late TextEditingController about;
   // final ImagePicker picker = ImagePicker();
   // Rx<PickedFile> imageFile = PickedFile("").obs;
+  Rx<File> file = File("").obs;
   // final foto = "".obs;
 
   final authC = Get.find<AuthController>();
@@ -63,7 +65,9 @@ class CreateProfileController extends GetxController {
 
     if(pickedFile != null){
       pp.value = "1";
-      selectedImagePath.value = basename(selectedImagePath.value).replaceAll('-', '');
+      // selectedImagePath.value = pickedFile.path;
+      // imageFile.value = pickedFile;
+      file.value = File(pickedFile.path);
     }else{
       Get.snackbar("Error", "No image selected");
     }
@@ -82,11 +86,42 @@ class CreateProfileController extends GetxController {
     }
   }
 
+  // addProfile()async{
+  //   var stream = http.ByteStream(DelegatingStream.typed(file.value.openRead()));
+  //   var length = await file.value.length();
+  //
+  //   var uri = Uri.parse("http://192.168.100.175:5000/profile/add");
+  //   var request = http.MultipartRequest("POST", uri);
+  //
+  //   request.fields['name'] = name.text;
+  //   request.fields['profession'] = profession.text;
+  //   request.fields['DOB'] = dob.text;
+  //   request.fields['titleline'] = title.text;
+  //   request.fields['about'] = about.text;
+  //
+  //   request.files.add(
+  //       http.MultipartFile(
+  //           "img",
+  //           stream,
+  //           length,
+  //           filename: path.basename(file.value.path)
+  //       )
+  //   );
+  //
+  //   var response = await request.send();
+  //
+  //   if(response.statusCode == 200){
+  //     navbarC.tabIndex.value = 1;
+  //     Get.offAllNamed(Routes.NAVBAR);
+  //   }else {
+  //     print("Image failed");
+  //   }
+  //
+  // }
+
   addProfile()async{
     try{
-      String? image = basename(selectedImagePath.value).replaceAll('-', '');
-
-      print(image);
+      String fileName = file.value.path.split('/').last;
 
       var params =  {
         "name": name.text,
@@ -94,17 +129,27 @@ class CreateProfileController extends GetxController {
         "DOB": dob.text,
         "titleline": title.text,
         "about": about.text,
-        "img": image,
+        // "img": imageFile.value.path,
       };
+
+      Dio.FormData formData = Dio.FormData.fromMap({
+        "name": name.text,
+        "profession": profession.text,
+        "DOB": dob.text,
+        "titleline": title.text,
+        "about": about.text,
+        "img": await Dio.MultipartFile.fromFile(file.value.path, filename: path.basename(file.value.path)),
+      });
 
       final response = await dio.post("/profile/add",
           options: Dio.Options(
               headers: {
                 "Accept": "application/json",
-                "Authorization" : "${authC.box.read('token')}"
+                "Authorization" : "${authC.box.read('token')}",
+                "Content-type": "multipart/form-data",
               }
           ),
-          data: jsonEncode(params)
+          data: formData
       );
 
       final data = response.data;

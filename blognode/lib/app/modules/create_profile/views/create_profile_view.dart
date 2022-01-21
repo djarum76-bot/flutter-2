@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:blognode/app/services/auth_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -13,7 +14,7 @@ class CreateProfileView extends GetView<CreateProfileController> {
     return Scaffold(
       body: SafeArea(
           child: Form(
-            key: controller.globalkey,
+            key: globalkey,
             child: ListView(
               padding: EdgeInsets.symmetric(horizontal: Get.height * 0.02450980392, vertical: Get.height * 0.03676470588),
               children: <Widget>[
@@ -24,7 +25,7 @@ class CreateProfileView extends GetView<CreateProfileController> {
                         radius: 80.0,
                         backgroundImage: controller.pp.value == ""
                             ? AssetImage("asset/placeholder.png") as ImageProvider
-                            : FileImage(File(controller.selectedImagePath.value)),
+                            : FileImage(File(controller.file.value.path)),
                       );
                     }),
                     Positioned(

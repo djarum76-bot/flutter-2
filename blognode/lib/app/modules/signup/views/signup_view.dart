@@ -1,3 +1,4 @@
+import 'package:blognode/app/services/auth_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -19,7 +20,7 @@ class SignupView extends GetView<SignupController> {
           ),
         ),
         child: Form(
-          key: controller.globalkey,
+          key: globalkey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

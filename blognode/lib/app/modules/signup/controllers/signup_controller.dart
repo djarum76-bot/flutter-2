@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 
 class SignupController extends GetxController {
   final secure = true.obs;
-  final globalkey = GlobalKey<FormState>();
 
   late TextEditingController usernameController;
   late TextEditingController emailController;

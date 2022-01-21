@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -9,6 +10,8 @@ var options = BaseOptions(
 );
 
 Dio dio = Dio(options);
+
+final globalkey = GlobalKey<FormState>();
 
 class AuthController extends GetxController{
   final box = GetStorage();

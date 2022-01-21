@@ -1,4 +1,5 @@
 import 'package:blognode/app/routes/app_pages.dart';
+import 'package:blognode/app/services/auth_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -22,7 +23,7 @@ class SigninView extends GetView<SigninController> {
           ),
         ),
         child: Form(
-          key: controller.globalkey,
+          key: globalkey,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: Get.height * 0.04901960784, vertical: Get.height * 0.01225490196),
             child: Column(

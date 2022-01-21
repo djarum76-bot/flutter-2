@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 
 class SigninController extends GetxController {
   final secure = true.obs;
-  final globalkey = GlobalKey<FormState>();
 
   late TextEditingController usernameController;
   late TextEditingController passwordController;
