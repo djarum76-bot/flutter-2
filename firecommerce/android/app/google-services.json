@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "713699786602",
+    "project_id": "my-e-commercial-16f8d",
+    "storage_bucket": "my-e-commercial-16f8d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713699786602:android:64004acffe14a03c8cef13",
+        "android_client_info": {
+          "package_name": "com.firecommerce.firecommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "713699786602-kp8qu622r0ndickbmj81voe8ipskms25.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCK5pTmLuKnSnTxCYg-HWrghFe0Dolb8cU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "713699786602-kp8qu622r0ndickbmj81voe8ipskms25.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
