@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firecommerce/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -71,6 +72,28 @@ class LoginController extends GetxController {
   }
 
   void submit()async{
+    try{
+      isLoading.value = true;
+
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email.text, 
+        password: password.text
+      );
+    }on FirebaseAuthException catch(e){
+      if (e.code == 'user-not-found') {
+        Get.defaultDialog(
+          title: "Error",
+          middleText: 'No user found for that email.'
+        );
+      } else if (e.code == 'wrong-password') {
+        Get.defaultDialog(
+          title: "Error",
+          middleText: 'Wrong password provided for that user.'
+        );
+      }
+    }
     Get.offNamed(Routes.HOME);
+
+    isLoading.value = false;
   }
 }

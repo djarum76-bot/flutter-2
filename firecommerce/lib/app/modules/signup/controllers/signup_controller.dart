@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firecommerce/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -97,6 +99,35 @@ class SignupController extends GetxController {
   }
 
   void submit()async{
+    late UserCredential result;
+    try{
+      isLoading.value = true;
+      result = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email.text, 
+        password: password.text
+      );
+    }on FirebaseAuthException catch(e){
+      if (e.code == 'email-already-in-use') {
+        Get.defaultDialog(
+          title: "Error",
+          middleText: 'The account already exists for that email.'
+        );
+      }
+    }catch(e){
+      print(e);
+    }
+
+    FirebaseFirestore.instance.collection('User').doc(result.user!.uid).set({
+      "Username": username.text,
+      "UserID": result.user!.uid,
+      "UserEmail": email.text,
+      "UserAddres": address.text,
+      "UserGender": isMale.value == true ? "Male" : "Female",
+      "UserPhone": phone.text
+    });
+
     Get.offNamed(Routes.HOME);
+
+    isLoading.value = false;
   }
 }
