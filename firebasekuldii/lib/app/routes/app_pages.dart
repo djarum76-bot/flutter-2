@@ -1,5 +1,9 @@
 import 'package:get/get.dart';
 
+import 'package:firebasekuldii/app/modules/add_product/bindings/add_product_binding.dart';
+import 'package:firebasekuldii/app/modules/add_product/views/add_product_view.dart';
+import 'package:firebasekuldii/app/modules/edit_product/bindings/edit_product_binding.dart';
+import 'package:firebasekuldii/app/modules/edit_product/views/edit_product_view.dart';
 import 'package:firebasekuldii/app/modules/home/bindings/home_binding.dart';
 import 'package:firebasekuldii/app/modules/home/views/home_view.dart';
 import 'package:firebasekuldii/app/modules/login/bindings/login_binding.dart';
@@ -36,6 +40,16 @@ class AppPages {
       name: _Paths.RESET_PASSWORD,
       page: () => ResetPasswordView(),
       binding: ResetPasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_PRODUCT,
+      page: () => AddProductView(),
+      binding: AddProductBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_PRODUCT,
+      page: () => EditProductView(),
+      binding: EditProductBinding(),
     ),
   ];
 }

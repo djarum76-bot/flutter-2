@@ -1,20 +1,25 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  Future<QuerySnapshot<Object?>> getData()async{
+    CollectionReference products = firestore.collection('products');
+
+    return products.get();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  Stream<QuerySnapshot<Object?>> streamData(){
+    CollectionReference products = firestore.collection('products');
+
+    // return products.where('price', isGreaterThanOrEqualTo: 33333333334).snapshots();
+    return products.orderBy('time').snapshots();
   }
 
-  @override
-  void onClose() {}
-  void increment() => count.value++;
+  void deleteProduct(String docID)async{
+    DocumentReference docData = firestore.collection('products').doc(docID);
+
+    await docData.delete();
+  }
 }
