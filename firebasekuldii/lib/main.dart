@@ -23,6 +23,11 @@ class MyApp extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    // return GetMaterialApp(
+    //   title: "Application",
+    //   initialRoute: Routes.QUERY,
+    //   getPages: AppPages.routes,
+    // );
     return StreamBuilder<User?>(
       stream: authC.streamAuthStatus(),
       builder: (context, snapshot){

@@ -8,6 +8,8 @@ import 'package:firebasekuldii/app/modules/home/bindings/home_binding.dart';
 import 'package:firebasekuldii/app/modules/home/views/home_view.dart';
 import 'package:firebasekuldii/app/modules/login/bindings/login_binding.dart';
 import 'package:firebasekuldii/app/modules/login/views/login_view.dart';
+import 'package:firebasekuldii/app/modules/query/bindings/query_binding.dart';
+import 'package:firebasekuldii/app/modules/query/views/query_view.dart';
 import 'package:firebasekuldii/app/modules/reset_password/bindings/reset_password_binding.dart';
 import 'package:firebasekuldii/app/modules/reset_password/views/reset_password_view.dart';
 import 'package:firebasekuldii/app/modules/signup/bindings/signup_binding.dart';
@@ -50,6 +52,11 @@ class AppPages {
       name: _Paths.EDIT_PRODUCT,
       page: () => EditProductView(),
       binding: EditProductBinding(),
+    ),
+    GetPage(
+      name: _Paths.QUERY,
+      page: () => QueryView(),
+      binding: QueryBinding(),
     ),
   ];
 }
