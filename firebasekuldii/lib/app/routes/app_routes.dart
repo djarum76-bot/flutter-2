@@ -11,6 +11,7 @@ abstract class Routes {
   static const ADD_PRODUCT = _Paths.ADD_PRODUCT;
   static const EDIT_PRODUCT = _Paths.EDIT_PRODUCT;
   static const QUERY = _Paths.QUERY;
+  static const HOME_STORAGE = _Paths.HOME_STORAGE;
 }
 
 abstract class _Paths {
@@ -21,4 +22,5 @@ abstract class _Paths {
   static const ADD_PRODUCT = '/add-product';
   static const EDIT_PRODUCT = '/edit-product';
   static const QUERY = '/query';
+  static const HOME_STORAGE = '/home-storage';
 }

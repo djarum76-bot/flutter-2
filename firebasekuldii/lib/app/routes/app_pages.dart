@@ -6,6 +6,8 @@ import 'package:firebasekuldii/app/modules/edit_product/bindings/edit_product_bi
 import 'package:firebasekuldii/app/modules/edit_product/views/edit_product_view.dart';
 import 'package:firebasekuldii/app/modules/home/bindings/home_binding.dart';
 import 'package:firebasekuldii/app/modules/home/views/home_view.dart';
+import 'package:firebasekuldii/app/modules/home_storage/bindings/home_storage_binding.dart';
+import 'package:firebasekuldii/app/modules/home_storage/views/home_storage_view.dart';
 import 'package:firebasekuldii/app/modules/login/bindings/login_binding.dart';
 import 'package:firebasekuldii/app/modules/login/views/login_view.dart';
 import 'package:firebasekuldii/app/modules/query/bindings/query_binding.dart';
@@ -57,6 +59,11 @@ class AppPages {
       name: _Paths.QUERY,
       page: () => QueryView(),
       binding: QueryBinding(),
+    ),
+    GetPage(
+      name: _Paths.HOME_STORAGE,
+      page: () => HomeStorageView(),
+      binding: HomeStorageBinding(),
     ),
   ];
 }
