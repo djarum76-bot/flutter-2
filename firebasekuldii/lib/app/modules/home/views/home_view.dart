@@ -55,22 +55,20 @@ class HomeView extends GetView<HomeController> {
                   itemCount: listAllDocs.length,
                   itemBuilder: (context, index){
                     var data = listAllDocs[index].data() as Map<String, dynamic>;
-                    if(data["price"] > 33333333333){
-                      return ListTile(
-                        onTap: (){
-                          Get.toNamed(Routes.EDIT_PRODUCT, arguments: listAllDocs[index].id);
-                        },
-                        title: Text("${data["name"]}"),
-                        subtitle: Text("Rp ${data["price"]}"),
-                        trailing: IconButton(
-                            onPressed: (){
-                              controller.deleteProduct(listAllDocs[index].id);
-                            },
-                            icon: Icon(Icons.delete)
-                        ),
-                      );
-                    }
-                    return SizedBox();
+                    return ListTile(
+                      onTap: (){
+                        Get.toNamed(Routes.EDIT_PRODUCT, arguments: listAllDocs[index].id);
+                      },
+                      leading: Image.network("${data["gambar"]}"),
+                      title: Text("${data["name"]}"),
+                      subtitle: Text("Rp ${data["price"]}"),
+                      trailing: IconButton(
+                          onPressed: (){
+                            controller.deleteProduct(listAllDocs[index].id);
+                          },
+                          icon: Icon(Icons.delete)
+                      ),
+                    );
                   }
               );
             }

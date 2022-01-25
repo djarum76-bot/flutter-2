@@ -20,6 +20,7 @@ class EditProductView extends GetView<EditProductController> {
               var data = snapshot.data!.data() as Map<String,dynamic>;
               controller.nameC.text = data["name"];
               controller.priceC.text = data["price"];
+              controller.imageFile.value = data["gambar"];
               return Padding(
                 padding: EdgeInsets.all(Get.height * 0.015),
                 child: Column(
@@ -38,6 +39,11 @@ class EditProductView extends GetView<EditProductController> {
                       decoration: InputDecoration(
                           labelText: "Price"
                       ),
+                    ),
+                    SizedBox(height: 10,),
+                    CircleAvatar(
+                      radius: 40,
+                      backgroundImage: FileImage(controller.imageFile.value),
                     ),
                     SizedBox(height: 30,),
                     ElevatedButton(

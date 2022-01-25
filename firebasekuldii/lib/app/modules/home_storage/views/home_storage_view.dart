@@ -20,7 +20,7 @@ class HomeStorageView extends GetView<HomeStorageController> {
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: (){
-            controller.akses();
+            controller.uploadMultiFile();
           },
       ),
     );

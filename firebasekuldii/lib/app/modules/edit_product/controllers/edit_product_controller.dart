@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,6 +7,7 @@ import 'package:get/get.dart';
 class EditProductController extends GetxController {
   late TextEditingController nameC;
   late TextEditingController priceC;
+  late Rx<File> imageFile;
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 

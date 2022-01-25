@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -30,6 +32,25 @@ class AddProductView extends GetView<AddProductController> {
                 decoration: InputDecoration(
                     labelText: "Price"
                 ),
+              ),
+              SizedBox(height: 10,),
+              Obx((){
+                return controller.ambil.value == false
+                    ? CircleAvatar(
+                        radius: 40,
+                        backgroundColor: Colors.amber,
+                      )
+                    : CircleAvatar(
+                        radius: 40,
+                        backgroundImage: FileImage(controller.imageFile.value),
+                      );
+              }),
+              SizedBox(height: 10,),
+              ElevatedButton(
+                  onPressed: (){
+                    controller.ambilGambar();
+                  },
+                  child: Text("Ambil Gambar")
               ),
               SizedBox(height: 30,),
               ElevatedButton(
