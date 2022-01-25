@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "158189878928",
+    "project_id": "latihan-fcm-97ed6",
+    "storage_bucket": "latihan-fcm-97ed6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:158189878928:android:83d38141427cbd4ff12215",
+        "android_client_info": {
+          "package_name": "com.fcm.firebasecloudmessaging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "158189878928-ufobd89g5c9cqr1hd7msk971n7b0jfle.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fcm.firebasecloudmessaging",
+            "certificate_hash": "503fbc8fe4d3d6677cdb5bdb6ab08ce61cc98475"
+          }
+        },
+        {
+          "client_id": "158189878928-pebr4t920k9uqfav2ppb01jjib0m3380.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0-hROKNwjMjDlaO-njGLnVBe_ojNOj8A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "158189878928-pebr4t920k9uqfav2ppb01jjib0m3380.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
