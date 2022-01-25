@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "334233168403",
+    "project_id": "bane-2c179",
+    "storage_bucket": "bane-2c179.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:334233168403:android:1fc357780311aaab17ede6",
+        "android_client_info": {
+          "package_name": "com.bane.bane"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "334233168403-civ4rhkuv9lqfok6lv4ldi4gr8toaddu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bane.bane",
+            "certificate_hash": "503fbc8fe4d3d6677cdb5bdb6ab08ce61cc98475"
+          }
+        },
+        {
+          "client_id": "334233168403-mbf3v3ig5fovuj5vohd5r8nig2t2migd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAtgb-ilk7u2KdmrbFaj_CmnESfwHowfw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "334233168403-mbf3v3ig5fovuj5vohd5r8nig2t2migd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
