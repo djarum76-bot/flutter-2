@@ -12,6 +12,9 @@ class LoginController extends GetxController {
 
   final secure = true.obs;
 
+  final loading = false.obs;
+  final loadingG = false.obs;
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -28,7 +31,7 @@ class LoginController extends GetxController {
     password.dispose();
   }
 
-  check(){
+  Future<void> check()async {
     final form = key.currentState;
     if (form!.validate()) {
       form.save();

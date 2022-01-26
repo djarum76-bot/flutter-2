@@ -11,6 +11,7 @@ class LoginView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
           child: Padding(
               padding: EdgeInsets.symmetric(vertical: Get.height * 0.03, horizontal: Get.height * 0.025),
@@ -87,58 +88,76 @@ class LoginView extends GetView<LoginController> {
                           )
                       ),
                     ),
-                    InkWell(
-                      onTap: (){
-                        controller.check();
-                      },
-                      child: Material(
-                        borderRadius: BorderRadius.circular(20),
-                        elevation: 5,
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.deepOrangeAccent
-                          ),
-                          width: Get.width,
-                          height: Get.height * 0.075,
-                          child: Center(
-                            child: Text(
-                              "Login",
-                              style: GoogleFonts.openSans(color: Colors.white, fontSize: 22),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    Obx((){
+                      return controller.loading.value
+                          ? Center(
+                              child: CircularProgressIndicator(color: Colors.deepOrangeAccent,),
+                            )
+                          : InkWell(
+                              onTap: ()async{
+                                controller.loadingG.value = true;
+                                await controller.check();
+                                controller.loadingG.value = false;
+                              },
+                              child: Material(
+                                borderRadius: BorderRadius.circular(20),
+                                elevation: 5,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.deepOrangeAccent
+                                  ),
+                                  width: Get.width,
+                                  height: Get.height * 0.075,
+                                  child: Center(
+                                    child: Text(
+                                      "Login",
+                                      style: GoogleFonts.openSans(color: Colors.white, fontSize: 22),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                    }),
                     SizedBox(height: 20,),
                     Divider(color: Colors.black,),
                     SizedBox(height: 20,),
-                    InkWell(
-                      onTap: (){},
-                      child: Material(
-                        borderRadius: BorderRadius.circular(20),
-                        elevation: 5,
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.white
-                          ),
-                          width: Get.width,
-                          height: Get.height * 0.075,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset("asset/google.png"),
-                              Text(
-                                "Google",
-                                style: GoogleFonts.openSans(fontSize: 22),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
+                    Obx((){
+                      return controller.loadingG.value
+                          ? Center(
+                              child: CircularProgressIndicator(color:  Colors.deepOrangeAccent,),
+                            )
+                          : InkWell(
+                              onTap: ()async{
+                                controller.loadingG.value = true;
+                                await controller.authC.loginGoogle();
+                                controller.loadingG.value = false;
+                              },
+                              child: Material(
+                                borderRadius: BorderRadius.circular(20),
+                                elevation: 5,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.white
+                                  ),
+                                  width: Get.width,
+                                  height: Get.height * 0.075,
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset("asset/google.png"),
+                                      Text(
+                                        "Google",
+                                        style: GoogleFonts.openSans(fontSize: 22),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                    }),
                     SizedBox(height: 20,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,

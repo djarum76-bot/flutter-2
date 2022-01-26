@@ -2,10 +2,13 @@ import 'package:bane/app/routes/app_pages.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthController extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final box = GetStorage();
 
   Stream<User?> authStatus(){
     return auth.authStateChanges();
@@ -30,6 +33,8 @@ class AuthController extends GetxController {
         "image": "",
         "created_at": dateNow
       });
+
+      box.write('uid', '${myUser.user!.uid}');
 
       Get.defaultDialog(
           title: "Verification Email",
@@ -60,7 +65,7 @@ class AuthController extends GetxController {
       );
 
       if(myUser.user!.emailVerified){
-        Get.offAllNamed(Routes.HOME);
+        Get.offAllNamed(Routes.NAVBAR);
       }else{
         Get.defaultDialog(
             title: "Verification Email",
@@ -90,7 +95,14 @@ class AuthController extends GetxController {
   }
 
   void logout()async{
-    await auth.signOut();
+    final isSignIn = await GoogleSignIn().isSignedIn();
+
+    if(isSignIn){
+      await GoogleSignIn().signOut();
+      await auth.signOut();
+    }else{
+      await auth.signOut();
+    }
     Get.offAllNamed(Routes.LOGIN);
   }
 
@@ -107,5 +119,32 @@ class AuthController extends GetxController {
           }
       );
     }
+  }
+  
+  Future<void> loginGoogle()async{
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    UserCredential myUser = await auth.signInWithCredential(credential);
+
+    CollectionReference users = firestore.collection('users');
+
+    String dateNow = DateTime.now().toIso8601String();
+
+    await users.doc(myUser.user!.uid).set({
+      "username": googleUser!.displayName,
+      "image": "",
+      "created_at": dateNow
+    });
+
+    box.write('uid', '${myUser.user!.uid}');
+
+    Get.offAllNamed(Routes.NAVBAR);
   }
 }

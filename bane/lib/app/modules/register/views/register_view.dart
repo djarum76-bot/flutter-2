@@ -11,6 +11,7 @@ class RegisterView extends GetView<RegisterController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: Get.height * 0.03, horizontal: Get.height * 0.025),
@@ -89,29 +90,35 @@ class RegisterView extends GetView<RegisterController> {
                       )
                   ),
                   SizedBox(height: 30,),
-                  InkWell(
-                    onTap: (){
-                      controller.check();
-                    },
-                    child: Material(
-                      borderRadius: BorderRadius.circular(20),
-                      elevation: 5,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.deepOrangeAccent
-                        ),
-                        width: Get.width,
-                        height: Get.height * 0.075,
-                        child: Center(
-                          child: Text(
-                            "Register",
-                            style: GoogleFonts.openSans(color: Colors.white, fontSize: 22),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  Obx((){
+                    return controller.loading.value
+                        ? Center(
+                            child: CircularProgressIndicator(color: Colors.deepOrangeAccent,),
+                          )
+                        : InkWell(
+                            onTap: (){
+                              controller.check();
+                            },
+                            child: Material(
+                              borderRadius: BorderRadius.circular(20),
+                              elevation: 5,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.deepOrangeAccent
+                                ),
+                                width: Get.width,
+                                height: Get.height * 0.075,
+                                child: Center(
+                                  child: Text(
+                                    "Register",
+                                    style: GoogleFonts.openSans(color: Colors.white, fontSize: 22),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                  }),
                   SizedBox(height: 20,),
                   Divider(color: Colors.black,),
                   SizedBox(height: 10,),

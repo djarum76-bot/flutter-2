@@ -13,6 +13,8 @@ class RegisterController extends GetxController {
 
   final secure = true.obs;
 
+  final loading = false.obs;
+
   @override
   void onInit() {
     // TODO: implement onInit
