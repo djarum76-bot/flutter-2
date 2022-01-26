@@ -1,3 +1,4 @@
+import 'package:bane/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -68,7 +69,16 @@ class HomeView extends GetView<HomeController> {
                               ),
                               SizedBox(height: 10,),
                               InkWell(
-                                onTap: (){},
+                                onTap: (){
+                                  Get.toNamed(Routes.DETAIL, arguments: [
+                                    controller.networkC.berita.value.articles![0].urlToImage,
+                                    controller.networkC.berita.value.articles![0].title,
+                                    controller.networkC.berita.value.articles![0].description,
+                                    controller.networkC.berita.value.articles![0].author,
+                                    controller.networkC.berita.value.articles![0].publishedAt,
+                                    controller.networkC.berita.value.articles![0].content,
+                                  ]);
+                                },
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
@@ -126,7 +136,16 @@ class HomeView extends GetView<HomeController> {
                                       var i = index + 1;
                                       return i != controller.networkC.berita.value.articles!.length - 1
                                           ? InkWell(
-                                              onTap: (){},
+                                              onTap: (){
+                                                Get.toNamed(Routes.DETAIL, arguments: [
+                                                  controller.networkC.berita.value.articles![i].urlToImage,
+                                                  controller.networkC.berita.value.articles![i].title,
+                                                  controller.networkC.berita.value.articles![i].description,
+                                                  controller.networkC.berita.value.articles![i].author,
+                                                  controller.networkC.berita.value.articles![i].publishedAt,
+                                                  controller.networkC.berita.value.articles![i].content,
+                                                ]);
+                                              },
                                               child: Container(
                                                 width: Get.height * 0.24509803921,
                                                 margin: EdgeInsets.only(right: 10),
@@ -170,48 +189,57 @@ class HomeView extends GetView<HomeController> {
                                               ),
                                             )
                                           : InkWell(
-                                        onTap: (){},
-                                        child: Container(
-                                          width: Get.height * 0.24509803921,
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Container(
+                                              onTap: (){
+                                                Get.toNamed(Routes.DETAIL, arguments: [
+                                                  controller.networkC.berita.value.articles![i].urlToImage,
+                                                  controller.networkC.berita.value.articles![i].title,
+                                                  controller.networkC.berita.value.articles![i].description,
+                                                  controller.networkC.berita.value.articles![i].author,
+                                                  controller.networkC.berita.value.articles![i].publishedAt,
+                                                  controller.networkC.berita.value.articles![i].content,
+                                                ]);
+                                              },
+                                              child: Container(
                                                 width: Get.height * 0.24509803921,
-                                                height: Get.height * 0.14705882352,
-                                                decoration: BoxDecoration(
-                                                    color: Colors.yellow,
-                                                    borderRadius: BorderRadius.circular(20),
-                                                    image: DecorationImage(
-                                                        image: NetworkImage("${controller.networkC.berita.value.articles![i].urlToImage}"),
-                                                        fit: BoxFit.cover
-                                                    )
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                      width: Get.height * 0.24509803921,
+                                                      height: Get.height * 0.14705882352,
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.yellow,
+                                                          borderRadius: BorderRadius.circular(20),
+                                                          image: DecorationImage(
+                                                              image: NetworkImage("${controller.networkC.berita.value.articles![i].urlToImage}"),
+                                                              fit: BoxFit.cover
+                                                          )
+                                                      ),
+                                                    ),
+                                                    SizedBox(height: 10,),
+                                                    Text(
+                                                      "${controller.networkC.berita.value.articles![i].title}",
+                                                      style: GoogleFonts.merriweatherSans(fontSize: 20, fontWeight: FontWeight.bold,),
+                                                      maxLines: 2,
+                                                      overflow: TextOverflow.ellipsis,
+                                                      softWrap: false,
+                                                    ),
+                                                    SizedBox(height: 5,),
+                                                    Text(
+                                                      "${timeago.format(controller.networkC.berita.value.articles![i].publishedAt!)}",
+                                                      style: GoogleFonts.openSans(),
+                                                    ),
+                                                    Text(
+                                                      "By ${controller.networkC.berita.value.articles![i].author}",
+                                                      style: GoogleFonts.openSans(fontSize: 16),
+                                                      maxLines: 1,
+                                                      overflow: TextOverflow.ellipsis,
+                                                      softWrap: false,
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
-                                              SizedBox(height: 10,),
-                                              Text(
-                                                "${controller.networkC.berita.value.articles![i].title}",
-                                                style: GoogleFonts.merriweatherSans(fontSize: 20, fontWeight: FontWeight.bold,),
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                                softWrap: false,
-                                              ),
-                                              SizedBox(height: 5,),
-                                              Text(
-                                                "${timeago.format(controller.networkC.berita.value.articles![i].publishedAt!)}",
-                                                style: GoogleFonts.openSans(),
-                                              ),
-                                              Text(
-                                                "By ${controller.networkC.berita.value.articles![i].author}",
-                                                style: GoogleFonts.openSans(fontSize: 16),
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                softWrap: false,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      );
+                                            );
                                     }
                                 )
                             )

@@ -10,6 +10,7 @@ abstract class Routes {
   static const NAVBAR = _Paths.NAVBAR;
   static const SEARCH = _Paths.SEARCH;
   static const PROFILE = _Paths.PROFILE;
+  static const DETAIL = _Paths.DETAIL;
 }
 
 abstract class _Paths {
@@ -19,4 +20,5 @@ abstract class _Paths {
   static const NAVBAR = '/navbar';
   static const SEARCH = '/search';
   static const PROFILE = '/profile';
+  static const DETAIL = '/detail';
 }
