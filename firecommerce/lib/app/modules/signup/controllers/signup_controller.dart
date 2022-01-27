@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firecommerce/app/controllers/auth_controller.dart';
 import 'package:firecommerce/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,13 +14,13 @@ class SignupController extends GetxController {
   late TextEditingController username;
   late TextEditingController email;
   late TextEditingController password;
-  late TextEditingController phone;
   late TextEditingController address;
 
   final obserText = true.obs;
-  final isMale = true.obs;
 
   final isLoading = false.obs;
+
+  final authC = Get.find<AuthController>();
 
   @override
   void onInit() {
@@ -28,7 +29,6 @@ class SignupController extends GetxController {
     username = TextEditingController();
     password = TextEditingController();
     email = TextEditingController();
-    phone = TextEditingController();
     address = TextEditingController();
     regExp = new RegExp(p);
   }
@@ -40,12 +40,11 @@ class SignupController extends GetxController {
     username.dispose();
     email.dispose();
     password.dispose();
-    phone.dispose();
     address.dispose();
   }
 
-  void validation()async{
-    if(username.text.isEmpty && email.text.isEmpty && password.text.isEmpty && phone.text.isEmpty && address.text.isEmpty){
+  Future<void> validation()async{
+    if(username.text.isEmpty && email.text.isEmpty && password.text.isEmpty && address.text.isEmpty){
       scaffoldKey.currentState?.showSnackBar(
           SnackBar(
             content: Text("All Field Are Empty"),
@@ -81,12 +80,6 @@ class SignupController extends GetxController {
           content: Text("Password  Is Too Short"),
         ),
       );
-    }else if (phone.text.length < 11 || phone.text.length > 11) {
-      scaffoldKey.currentState?.showSnackBar(
-        SnackBar(
-          content: Text("Phone Number Must Be 11 "),
-        ),
-      );
     }else if (address.text.isEmpty) {
       scaffoldKey.currentState?.showSnackBar(
         SnackBar(
@@ -94,40 +87,7 @@ class SignupController extends GetxController {
         ),
       );
     } else {
-      submit();
+      authC.signup(email.text, password.text, username.text, address.text);
     }
-  }
-
-  void submit()async{
-    late UserCredential result;
-    try{
-      isLoading.value = true;
-      result = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email.text, 
-        password: password.text
-      );
-    }on FirebaseAuthException catch(e){
-      if (e.code == 'email-already-in-use') {
-        Get.defaultDialog(
-          title: "Error",
-          middleText: 'The account already exists for that email.'
-        );
-      }
-    }catch(e){
-      print(e);
-    }
-
-    FirebaseFirestore.instance.collection('User').doc(result.user!.uid).set({
-      "Username": username.text,
-      "UserID": result.user!.uid,
-      "UserEmail": email.text,
-      "UserAddres": address.text,
-      "UserGender": isMale.value == true ? "Male" : "Female",
-      "UserPhone": phone.text
-    });
-
-    Get.offNamed(Routes.HOME);
-
-    isLoading.value = false;
   }
 }

@@ -80,8 +80,10 @@ class LoginView extends GetView<LoginController> {
                                         style: TextStyle(color: Colors.white),
                                       ),
                                       color: Color(0xff746bc9),
-                                      onPressed: (){
-                                        controller.validation();
+                                      onPressed: ()async{
+                                        controller.isLoading.value = true;
+                                        await controller.validation();
+                                        controller.isLoading.value = false;
                                       },
                                     ),
                                   )

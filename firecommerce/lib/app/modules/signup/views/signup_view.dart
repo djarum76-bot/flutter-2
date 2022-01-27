@@ -75,39 +75,6 @@ class SignupView extends GetView<SignupController> {
                   );
                 }),
                 SizedBox(height: 10,),
-                GestureDetector(
-                  onTap: (){
-                    controller.isMale.toggle();
-                  },
-                  child: Container(
-                    height: Get.height * 0.07352941176,
-                    padding: EdgeInsets.only(left: Get.height * 0.01225490196),
-                    width: Get.width,
-                    decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-                    child: Center(
-                      child: Row(
-                        children: [
-                          Obx((){
-                            return Text(
-                              controller.isMale.value == true ? "Male" : "Female",
-                              style: TextStyle(color: Colors.black87, fontSize: 18),
-                            );
-                          }),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10,),
-                TextFormField(
-                  controller: controller.phone,
-                  onSaved: (String? e) => controller.phone.text = e!,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: "Phone Number",
-                  ),
-                ),
-                SizedBox(height: 10,),
                 TextFormField(
                   controller: controller.address,
                   onSaved: (String? e) => controller.address.text = e!,
@@ -128,8 +95,10 @@ class SignupView extends GetView<SignupController> {
                               style: TextStyle(color: Colors.white),
                             ),
                             color: Color(0xff746bc9),
-                            onPressed: (){
-                              controller.validation();
+                            onPressed: ()async{
+                              controller.isLoading.value = true;
+                              await controller.validation();
+                              controller.isLoading.value = false;
                             },
                           ),
                         )

@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firecommerce/app/controllers/auth_controller.dart';
 import 'package:firecommerce/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,6 +16,8 @@ class LoginController extends GetxController {
 
   final obserText = true.obs;
   final isLoading = false.obs;
+
+  final authC = Get.find<AuthController>();
 
   @override
   void onInit() {
@@ -35,7 +38,7 @@ class LoginController extends GetxController {
     password.dispose();
   }
 
-  void validation() async {
+  Future<void> validation() async {
     if (email.text.isEmpty && password.text.isEmpty) {
       scaffoldKey.currentState?.showSnackBar(
         SnackBar(
@@ -67,33 +70,7 @@ class LoginController extends GetxController {
         ),
       );
     } else {
-      submit();
+      authC.login(email.text, password.text);
     }
-  }
-
-  void submit()async{
-    try{
-      isLoading.value = true;
-
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email.text, 
-        password: password.text
-      );
-    }on FirebaseAuthException catch(e){
-      if (e.code == 'user-not-found') {
-        Get.defaultDialog(
-          title: "Error",
-          middleText: 'No user found for that email.'
-        );
-      } else if (e.code == 'wrong-password') {
-        Get.defaultDialog(
-          title: "Error",
-          middleText: 'Wrong password provided for that user.'
-        );
-      }
-    }
-    Get.offNamed(Routes.HOME);
-
-    isLoading.value = false;
   }
 }
