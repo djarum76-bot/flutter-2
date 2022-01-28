@@ -5,20 +5,20 @@ abstract class Routes {
   Routes._();
 
   static const HOME = _Paths.HOME;
-  static const SIGNUP = _Paths.SIGNUP;
   static const LOGIN = _Paths.LOGIN;
-  static const CONTACT_US = _Paths.CONTACT_US;
+  static const REGISTER = _Paths.REGISTER;
+  static const NAVBAR = _Paths.NAVBAR;
   static const PROFILE = _Paths.PROFILE;
-  static const ABOUT = _Paths.ABOUT;
-  static const CHECK_OUT = _Paths.CHECK_OUT;
+  static const CART = _Paths.CART;
+  static const DETAIL = _Paths.DETAIL;
 }
 
 abstract class _Paths {
   static const HOME = '/home';
-  static const SIGNUP = '/signup';
   static const LOGIN = '/login';
-  static const CONTACT_US = '/contact-us';
+  static const REGISTER = '/register';
+  static const NAVBAR = '/navbar';
   static const PROFILE = '/profile';
-  static const ABOUT = '/about';
-  static const CHECK_OUT = '/check-out';
+  static const CART = '/cart';
+  static const DETAIL = '/detail';
 }

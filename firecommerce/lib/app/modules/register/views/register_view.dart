@@ -1,13 +1,12 @@
-import 'package:firecommerce/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
-import '../controllers/login_controller.dart';
+import '../controllers/register_controller.dart';
 
-class LoginView extends GetView<LoginController> {
+class RegisterView extends GetView<RegisterController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,10 +19,27 @@ class LoginView extends GetView<LoginController> {
               child: ListView(
                 children: [
                   Lottie.asset("asset/login.json", height: Get.height * 0.35),
+                  SizedBox(height: 30,),
                   Form(
                       key: controller.key,
                       child: Column(
                         children: [
+                          TextFormField(
+                            decoration: InputDecoration(
+                                labelText: "Username",
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20)
+                                )
+                            ),
+                            controller: controller.username,
+                            style: GoogleFonts.openSans(),
+                            validator: (a){
+                              if(a!.isEmpty){
+                                return "Password tidak boleh kosong";
+                              }
+                            },
+                          ),
+                          SizedBox(height: 15,),
                           TextFormField(
                             decoration: InputDecoration(
                                 labelText: "Email",
@@ -31,6 +47,8 @@ class LoginView extends GetView<LoginController> {
                                     borderRadius: BorderRadius.circular(20)
                                 )
                             ),
+                            controller: controller.email,
+                            style: GoogleFonts.openSans(),
                             validator: (a){
                               if(a!.isEmpty){
                                 return "Email tidak boleh kosong";
@@ -39,24 +57,22 @@ class LoginView extends GetView<LoginController> {
                                 return "Email tidak valid";
                               }
                             },
-                            controller: controller.email,
-                            style: GoogleFonts.openSans(),
                           ),
                           SizedBox(height: 15,),
                           Obx((){
                             return TextFormField(
                               obscureText: controller.secure.value,
                               decoration: InputDecoration(
-                                labelText: "Password",
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20)
-                                ),
-                                suffixIcon: IconButton(
-                                  icon: Icon(controller.secure.value ? Icons.visibility_off : Icons.visibility),
-                                  onPressed: () {
-                                    controller.secure.toggle();
-                                  },
-                                ),
+                                  labelText: "Password",
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20)
+                                  ),
+                                  suffixIcon: IconButton(
+                                    icon: Icon(controller.secure.value ? Icons.visibility_off : Icons.visibility),
+                                    onPressed: () {
+                                      controller.secure.toggle();
+                                    },
+                                  )
                               ),
                               controller: controller.password,
                               style: GoogleFonts.openSans(),
@@ -68,35 +84,19 @@ class LoginView extends GetView<LoginController> {
                                 }
                               },
                             );
-                          }),
+                          })
                         ],
                       )
                   ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                        onPressed: (){
-                          controller.authC.resetPassword(controller.email.text);
-                        },
-                        child: TextButton(
-                            onPressed: (){},
-                            child: Text(
-                              "Reset Password",
-                              style: GoogleFonts.openSans(),
-                            )
-                        )
-                    ),
-                  ),
+                  SizedBox(height: 30,),
                   Obx((){
                     return controller.loading.value
                         ? Center(
                       child: CircularProgressIndicator(color: Colors.deepOrangeAccent,),
                     )
                         : InkWell(
-                      onTap: ()async{
-                        controller.loadingG.value = true;
-                        await controller.check();
-                        controller.loadingG.value = false;
+                      onTap: (){
+                        controller.check();
                       },
                       child: Material(
                         borderRadius: BorderRadius.circular(20),
@@ -110,7 +110,7 @@ class LoginView extends GetView<LoginController> {
                           height: Get.height * 0.075,
                           child: Center(
                             child: Text(
-                              "Login",
+                              "Register",
                               style: GoogleFonts.openSans(color: Colors.white, fontSize: 22),
                             ),
                           ),
@@ -120,55 +120,18 @@ class LoginView extends GetView<LoginController> {
                   }),
                   SizedBox(height: 20,),
                   Divider(color: Colors.black,),
-                  SizedBox(height: 20,),
-                  Obx((){
-                    return controller.loadingG.value
-                        ? Center(
-                      child: CircularProgressIndicator(color:  Colors.deepOrangeAccent,),
-                    )
-                        : InkWell(
-                      onTap: ()async{
-                        controller.loadingG.value = true;
-                        await controller.authC.loginGoogle();
-                        controller.loadingG.value = false;
-                      },
-                      child: Material(
-                        borderRadius: BorderRadius.circular(20),
-                        elevation: 5,
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.white
-                          ),
-                          width: Get.width,
-                          height: Get.height * 0.075,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset("asset/google.png"),
-                              Text(
-                                "Google",
-                                style: GoogleFonts.openSans(fontSize: 22),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  }),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 10,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                          "Not a member ? "
+                          "A member ? "
                       ),
                       TextButton(
                           onPressed: (){
-                            Get.toNamed(Routes.REGISTER);
+                            Get.back();
                           },
-                          child: Text("Register now")
+                          child: Text("Login now")
                       )
                     ],
                   )

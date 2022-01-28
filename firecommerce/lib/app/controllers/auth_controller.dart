@@ -2,17 +2,21 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firecommerce/app/routes/app_pages.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthController extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
+  final box = GetStorage();
+
   Stream<User?> authStatus(){
     return auth.authStateChanges();
   }
 
-  void signup(String email, String password, String username, String address)async{
-    try{
+  void register(String username, String email, String password)async{
+    try {
       UserCredential myUser = await auth.createUserWithEmailAndPassword(
           email: email,
           password: password
@@ -25,10 +29,13 @@ class AuthController extends GetxController {
       await myUser.user!.sendEmailVerification();
 
       await users.doc(myUser.user!.uid).set({
-        "Username": username,
-        "UserID": myUser.user!.uid,
-        "UserEmail": email,
-        "UserAddres": address,
+        "uid": myUser.user!.uid,
+        "username": username,
+        "email": email,
+        "profile": "",
+        "coin": 0,
+        "role": "pembeli",
+        "created_at": dateNow
       });
 
       Get.defaultDialog(
@@ -40,14 +47,14 @@ class AuthController extends GetxController {
           },
           textConfirm: "OKEEE"
       );
-    }on FirebaseAuthException catch(e){
+    } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
         Get.defaultDialog(
-            title: "Error",
-            middleText: 'The account already exists for that email.'
+          title: "WARNING",
+          middleText: "The account already exists for that email.",
         );
       }
-    }catch(e){
+    } catch (e) {
       print(e);
     }
   }
@@ -60,7 +67,8 @@ class AuthController extends GetxController {
       );
 
       if(myUser.user!.emailVerified){
-        Get.offAllNamed(Routes.HOME);
+        box.write('uid', myUser.user!.uid);
+        Get.offAllNamed(Routes.NAVBAR);
       }else{
         Get.defaultDialog(
             title: "Verification Email",
@@ -89,8 +97,76 @@ class AuthController extends GetxController {
     }
   }
 
-  void signout()async{
-    await auth.signOut();
+  void logout()async{
+    final isSignIn = await GoogleSignIn().isSignedIn();
+
+    if(isSignIn){
+      await GoogleSignIn().signOut();
+      await auth.signOut();
+    }else{
+      await auth.signOut();
+    }
     Get.offAllNamed(Routes.LOGIN);
+  }
+
+  void resetPassword(String email)async{
+    if(email != "" && GetUtils.isEmail(email)){
+      Get.defaultDialog(
+          title: "Reset Password",
+          middleText: "Apakah anda yakin reset password ?",
+          textConfirm: "Iya",
+          textCancel: "Tidak",
+          onConfirm: ()async{
+            await auth.sendPasswordResetEmail(email: email);
+            Get.back();
+          }
+      );
+    }
+  }
+
+  Future<void> loginGoogle()async{
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      UserCredential myUser = await auth.signInWithCredential(credential);
+
+      CollectionReference users = firestore.collection('users');
+
+      final checkUser = await users.doc(myUser.user!.uid).get();
+
+      if(checkUser.data() == null){
+        String dateNow = DateTime.now().toIso8601String();
+
+        await users.doc(myUser.user!.uid).set({
+          "uid": myUser.user!.uid,
+          "username": googleUser!.displayName,
+          "email": googleUser.email,
+          "profile": "",
+          "coin": 0,
+          "role": "pembeli",
+          "created_at": dateNow
+        });
+      }
+
+      box.write('uid', myUser.user!.uid);
+
+      Get.offAllNamed(Routes.NAVBAR);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'email-already-in-use') {
+        Get.defaultDialog(
+          title: "Error",
+          middleText: "The account already exists for that email.",
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 }

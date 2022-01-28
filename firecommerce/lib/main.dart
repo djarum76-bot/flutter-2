@@ -25,8 +25,11 @@ class MyApp extends StatelessWidget{
         builder: (context, snapshot){
           if(snapshot.connectionState == ConnectionState.active){
             return GetMaterialApp(
+              theme: ThemeData(
+                primaryColor: Colors.deepOrangeAccent
+              ),
               title: "Application",
-              initialRoute: snapshot.data != null && snapshot.data!.emailVerified == true ? Routes.HOME : Routes.LOGIN,
+              initialRoute: snapshot.data != null && snapshot.data!.emailVerified == true ? Routes.NAVBAR : Routes.LOGIN,
               getPages: AppPages.routes,
             );
           }

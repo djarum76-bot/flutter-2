@@ -1,19 +1,19 @@
 import 'package:get/get.dart';
 
-import 'package:firecommerce/app/modules/about/bindings/about_binding.dart';
-import 'package:firecommerce/app/modules/about/views/about_view.dart';
-import 'package:firecommerce/app/modules/check_out/bindings/check_out_binding.dart';
-import 'package:firecommerce/app/modules/check_out/views/check_out_view.dart';
-import 'package:firecommerce/app/modules/contact_us/bindings/contact_us_binding.dart';
-import 'package:firecommerce/app/modules/contact_us/views/contact_us_view.dart';
+import 'package:firecommerce/app/modules/cart/bindings/cart_binding.dart';
+import 'package:firecommerce/app/modules/cart/views/cart_view.dart';
+import 'package:firecommerce/app/modules/detail/bindings/detail_binding.dart';
+import 'package:firecommerce/app/modules/detail/views/detail_view.dart';
 import 'package:firecommerce/app/modules/home/bindings/home_binding.dart';
 import 'package:firecommerce/app/modules/home/views/home_view.dart';
 import 'package:firecommerce/app/modules/login/bindings/login_binding.dart';
 import 'package:firecommerce/app/modules/login/views/login_view.dart';
+import 'package:firecommerce/app/modules/navbar/bindings/navbar_binding.dart';
+import 'package:firecommerce/app/modules/navbar/views/navbar_view.dart';
 import 'package:firecommerce/app/modules/profile/bindings/profile_binding.dart';
 import 'package:firecommerce/app/modules/profile/views/profile_view.dart';
-import 'package:firecommerce/app/modules/signup/bindings/signup_binding.dart';
-import 'package:firecommerce/app/modules/signup/views/signup_view.dart';
+import 'package:firecommerce/app/modules/register/bindings/register_binding.dart';
+import 'package:firecommerce/app/modules/register/views/register_view.dart';
 
 part 'app_routes.dart';
 
@@ -29,19 +29,19 @@ class AppPages {
       binding: HomeBinding(),
     ),
     GetPage(
-      name: _Paths.SIGNUP,
-      page: () => SignupView(),
-      binding: SignupBinding(),
-    ),
-    GetPage(
       name: _Paths.LOGIN,
       page: () => LoginView(),
       binding: LoginBinding(),
     ),
     GetPage(
-      name: _Paths.CONTACT_US,
-      page: () => ContactUsView(),
-      binding: ContactUsBinding(),
+      name: _Paths.REGISTER,
+      page: () => RegisterView(),
+      binding: RegisterBinding(),
+    ),
+    GetPage(
+      name: _Paths.NAVBAR,
+      page: () => NavbarView(),
+      binding: NavbarBinding(),
     ),
     GetPage(
       name: _Paths.PROFILE,
@@ -49,14 +49,14 @@ class AppPages {
       binding: ProfileBinding(),
     ),
     GetPage(
-      name: _Paths.ABOUT,
-      page: () => AboutView(),
-      binding: AboutBinding(),
+      name: _Paths.CART,
+      page: () => CartView(),
+      binding: CartBinding(),
     ),
     GetPage(
-      name: _Paths.CHECK_OUT,
-      page: () => CheckOutView(),
-      binding: CheckOutBinding(),
+      name: _Paths.DETAIL,
+      page: () => DetailView(),
+      binding: DetailBinding(),
     ),
   ];
 }

@@ -1,15 +1,17 @@
-import 'package:firecommerce/app/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
-class HomeController extends GetxController {
-  final GlobalKey<ScaffoldState> key = GlobalKey<ScaffoldState>();
+class HomeController extends GetxController  with SingleGetTickerProviderMixin {
+  final pageC = PageController(keepPage: true);
 
-  final authC = Get.find<AuthController>();
+  late TabController tabController;
 
-  final homeColor = true.obs;
-  final checkoutColor = false.obs;
-  final aboutColor = false.obs;
-  final contactUsColor = false.obs;
-  final profileColor = false.obs;
+  final formatCurrency = NumberFormat.simpleCurrency(locale: 'id_ID',decimalDigits: 0);
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    tabController = TabController(length: 10, vsync: this);
+  }
 }
