@@ -20,6 +20,8 @@ dependencies:
   card_swiper: 2.0.1
   flutter_rating_bar: 4.0.0
   avatar_glow: 2.0.2
+  image_picker: 0.8.4+5
+  firebase_storage: 10.2.6
   flutter: 
     sdk: flutter
 

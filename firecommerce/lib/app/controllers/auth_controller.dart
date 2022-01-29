@@ -106,6 +106,7 @@ class AuthController extends GetxController {
     }else{
       await auth.signOut();
     }
+    box.remove('uid');
     Get.offAllNamed(Routes.LOGIN);
   }
 

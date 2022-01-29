@@ -1,4 +1,6 @@
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firecommerce/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -24,39 +26,81 @@ class ProfileView extends GetView<ProfileController> {
                   ),
                 ),
                 SizedBox(height: 10,),
-                AvatarGlow(
-                  child: Container(
-                      margin: EdgeInsets.all(15),
-                      width: Get.height * 0.21446078431,
-                      height: Get.height * 0.21446078431,
-                      child: CircleAvatar(
-                        backgroundColor: Colors.deepOrangeAccent,
-                      )
-                  ),
-                  endRadius: Get.height * 0.13480392156,
-                  glowColor: Colors.black,
-                  duration: Duration(seconds: 2),
-                ),
-                Column(
-                  children: [
-                    Text(
-                      "Nama User",
-                      style: GoogleFonts.josefinSans(fontSize: 24, fontWeight: FontWeight.w700),
-                    ),
-                    SizedBox(height: 4,),
-                    Text(
-                      "Coin : 0",
-                      style: GoogleFonts.josefinSans(fontSize: 20,),
-                    ),
-                  ],
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                StreamBuilder<QuerySnapshot<Object?>>(
+                    stream: controller.streamDataUser(),
+                    builder: (context, snapshot){
+                      if(snapshot.connectionState == ConnectionState.active){
+                        var listAllDocs = snapshot.data!.docs;
+                        var data = listAllDocs[0].data() as Map<String, dynamic>;
+                        return Column(
+                          children: [
+                            AvatarGlow(
+                              child: Container(
+                                  margin: EdgeInsets.all(15),
+                                  width: Get.height * 0.21446078431,
+                                  height: Get.height * 0.21446078431,
+                                  child: data["profile"] == ""
+                                    ? CircleAvatar(
+                                        backgroundColor: Colors.deepOrangeAccent,
+                                      )
+                                    : CircleAvatar(
+                                        backgroundImage: NetworkImage("${data["profile"]}"),
+                                      )
+                              ),
+                              endRadius: Get.height * 0.13480392156,
+                              glowColor: Colors.black,
+                              duration: Duration(seconds: 2),
+                            ),
+                            Text(
+                              "Nama ${data["username"]}",
+                              style: GoogleFonts.josefinSans(fontSize: 24, fontWeight: FontWeight.w700),
+                            ),
+                            SizedBox(height: 4,),
+                            Text(
+                              "Coin : ${data["coin"]}",
+                              style: GoogleFonts.josefinSans(fontSize: 20,),
+                            ),
+                          ],
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                        );
+                      }
+                      return Column(
+                        children: [
+                          AvatarGlow(
+                            child: Container(
+                                margin: EdgeInsets.all(15),
+                                width: Get.height * 0.21446078431,
+                                height: Get.height * 0.21446078431,
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.deepOrangeAccent,
+                                )
+                            ),
+                            endRadius: Get.height * 0.13480392156,
+                            glowColor: Colors.black,
+                            duration: Duration(seconds: 2),
+                          ),
+                          Text(
+                            "Nama User",
+                            style: GoogleFonts.josefinSans(fontSize: 24, fontWeight: FontWeight.w700),
+                          ),
+                          SizedBox(height: 4,),
+                          Text(
+                            "Coin : 0",
+                            style: GoogleFonts.josefinSans(fontSize: 20,),
+                          ),
+                        ],
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                      );
+                    }
                 ),
                 SizedBox(height: 20,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InkWell(
-                      onTap: (){},
+                      onTap: (){
+                        Get.toNamed(Routes.EDIT_PROFIL);
+                      },
                       child: Container(
                         decoration: BoxDecoration(
                             color: Colors.white,
@@ -175,12 +219,14 @@ class ProfileView extends GetView<ProfileController> {
                 ),
                 SizedBox(height: 20,),
                 InkWell(
-                  onTap: (){},
+                  onTap: (){
+                    controller.authC.logout();
+                  },
                   child: Container(
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Colors.black)
+                        border: Border.all(color: Colors.red)
                     ),
                     width: Get.width,
                     height: Get.height * 0.06,

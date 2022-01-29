@@ -1,20 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firecommerce/app/controllers/auth_controller.dart';
 import 'package:get/get.dart';
 
 class ProfileController extends GetxController {
-  //TODO: Implement ProfileController
+  final authC = Get.find<AuthController>();
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  Future<QuerySnapshot<Object?>> getDataUser()async{
+    CollectionReference user = firestore.collection('users');
+
+    return user.where('uid', isEqualTo: authC.box.read('uid')).get();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  Stream<QuerySnapshot<Object?>> streamDataUser(){
+    CollectionReference user = firestore.collection('users');
 
-  @override
-  void onClose() {}
-  void increment() => count.value++;
+    return user.where('uid', isEqualTo: authC.box.read('uid')).snapshots();
+  }
 }

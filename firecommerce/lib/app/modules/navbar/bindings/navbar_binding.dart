@@ -1,4 +1,5 @@
 import 'package:firecommerce/app/modules/home/controllers/home_controller.dart';
+import 'package:firecommerce/app/modules/profile/controllers/profile_controller.dart';
 import 'package:get/get.dart';
 
 import '../controllers/navbar_controller.dart';
@@ -11,6 +12,9 @@ class NavbarBinding extends Bindings {
     );
     Get.lazyPut<HomeController>(
           () => HomeController(),
+    );
+    Get.lazyPut<ProfileController>(
+          () => ProfileController(),
     );
   }
 }

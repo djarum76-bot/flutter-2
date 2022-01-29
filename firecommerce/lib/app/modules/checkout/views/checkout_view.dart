@@ -1,3 +1,4 @@
+import 'package:firecommerce/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -69,6 +70,7 @@ class CheckoutView extends GetView<CheckoutController> {
                                             alignment: Alignment.centerLeft,
                                             child: ListTile(
                                               onTap: (){
+                                                Get.toNamed(Routes.PILIH_ALAMAT);
                                               },
                                               title: Text(
                                                 "Pilih Alamat Tujuan",

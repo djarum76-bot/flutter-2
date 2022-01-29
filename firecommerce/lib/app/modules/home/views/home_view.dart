@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firecommerce/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
@@ -56,9 +57,22 @@ class HomeView extends GetView<HomeController> {
                   ],
                 ),
                 SizedBox(height: 20,),
-                Text(
-                    "Hello User",
-                    style: GoogleFonts.openSans(fontWeight: FontWeight.bold, fontSize: 30),
+                StreamBuilder<QuerySnapshot<Object?>>(
+                    stream: controller.streamDataUser(),
+                    builder: (context, snapshot){
+                      if(snapshot.connectionState == ConnectionState.active){
+                        var listAllDocs = snapshot.data!.docs;
+                        var data = listAllDocs[0].data() as Map<String, dynamic>;
+                        return Text(
+                          "Hello ${data["username"]}",
+                          style: GoogleFonts.openSans(fontWeight: FontWeight.bold, fontSize: 30),
+                        );
+                      }
+                      return Text(
+                        "Hello User",
+                        style: GoogleFonts.openSans(fontWeight: FontWeight.bold, fontSize: 30),
+                      );
+                    }
                 ),
                 Text(
                   "Butuh sesuatu ?",

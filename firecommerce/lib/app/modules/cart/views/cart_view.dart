@@ -127,6 +127,13 @@ class CartView extends GetView<CartController> {
                                                   ],
                                                 ),
                                               ),
+                                            ),
+                                            Align(
+                                              alignment: Alignment.topCenter,
+                                              child: IconButton(
+                                                  onPressed: (){},
+                                                  icon: Icon(Icons.close)
+                                              ),
                                             )
                                             // Container(
                                             //   decoration: BoxDecoration(
