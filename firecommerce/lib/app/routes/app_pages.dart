@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import 'package:firecommerce/app/modules/cart/bindings/cart_binding.dart';
 import 'package:firecommerce/app/modules/cart/views/cart_view.dart';
+import 'package:firecommerce/app/modules/checkout/bindings/checkout_binding.dart';
+import 'package:firecommerce/app/modules/checkout/views/checkout_view.dart';
 import 'package:firecommerce/app/modules/detail/bindings/detail_binding.dart';
 import 'package:firecommerce/app/modules/detail/views/detail_view.dart';
 import 'package:firecommerce/app/modules/home/bindings/home_binding.dart';
@@ -57,6 +59,11 @@ class AppPages {
       name: _Paths.DETAIL,
       page: () => DetailView(),
       binding: DetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHECKOUT,
+      page: () => CheckoutView(),
+      binding: CheckoutBinding(),
     ),
   ];
 }

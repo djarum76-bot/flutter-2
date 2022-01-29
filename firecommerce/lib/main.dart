@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget{
                 primaryColor: Colors.deepOrangeAccent
               ),
               title: "Application",
-              initialRoute: snapshot.data != null && snapshot.data!.emailVerified == true ? Routes.NAVBAR : Routes.LOGIN,
+              initialRoute: snapshot.data != null && snapshot.data!.emailVerified == true ? Routes.CHECKOUT : Routes.LOGIN,
               getPages: AppPages.routes,
             );
           }

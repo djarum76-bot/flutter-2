@@ -1,3 +1,4 @@
+import 'package:firecommerce/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -102,15 +103,9 @@ class CartView extends GetView<CartController> {
                                               ),
                                             ),
                                             Container(
-                                              decoration: BoxDecoration(
-                                                  color: Colors.pinkAccent.withOpacity(0.2),
-                                                  borderRadius: BorderRadius.circular(8)
-                                              ),
-                                              width: Get.height * 0.1225490196,
-                                              height: Get.height * 0.02450980392,
                                               child: Align(
                                                 alignment: Alignment.topCenter,
-                                                child: Row(
+                                                child: Column(
                                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                   crossAxisAlignment: CrossAxisAlignment.center,
                                                   children: [
@@ -118,9 +113,12 @@ class CartView extends GetView<CartController> {
                                                         onTap: (){},
                                                         child: Icon(Icons.remove)
                                                     ),
-                                                    Text(
-                                                      "1",
-                                                      style: GoogleFonts.openSans(fontWeight: FontWeight.bold),
+                                                    Align(
+                                                      alignment: Alignment.center,
+                                                      child: Text(
+                                                        "1",
+                                                        style: GoogleFonts.openSans(fontWeight: FontWeight.bold),
+                                                      ),
                                                     ),
                                                     InkWell(
                                                         onTap: (){},
@@ -130,6 +128,35 @@ class CartView extends GetView<CartController> {
                                                 ),
                                               ),
                                             )
+                                            // Container(
+                                            //   decoration: BoxDecoration(
+                                            //       color: Colors.pinkAccent.withOpacity(0.2),
+                                            //       borderRadius: BorderRadius.circular(8)
+                                            //   ),
+                                            //   width: Get.height * 0.1225490196,
+                                            //   height: Get.height * 0.02450980392,
+                                            //   child: Align(
+                                            //     alignment: Alignment.topCenter,
+                                            //     child: Row(
+                                            //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            //       crossAxisAlignment: CrossAxisAlignment.center,
+                                            //       children: [
+                                            //         InkWell(
+                                            //             onTap: (){},
+                                            //             child: Icon(Icons.remove)
+                                            //         ),
+                                            //         Text(
+                                            //           "1",
+                                            //           style: GoogleFonts.openSans(fontWeight: FontWeight.bold),
+                                            //         ),
+                                            //         InkWell(
+                                            //             onTap: (){},
+                                            //             child: Icon(Icons.add)
+                                            //         ),
+                                            //       ],
+                                            //     ),
+                                            //   ),
+                                            // )
                                           ],
                                         ),
                                       );
@@ -160,6 +187,7 @@ class CartView extends GetView<CartController> {
                 ),
                 InkWell(
                   onTap: (){
+                    Get.toNamed(Routes.CHECKOUT);
                   },
                   child: Material(
                     borderRadius: BorderRadius.circular(20),
