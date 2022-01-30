@@ -1,33 +1,37 @@
 import 'package:get/get.dart';
 
-import 'package:firecommerce/app/modules/cart/bindings/cart_binding.dart';
-import 'package:firecommerce/app/modules/cart/views/cart_view.dart';
-import 'package:firecommerce/app/modules/checkout/bindings/checkout_binding.dart';
-import 'package:firecommerce/app/modules/checkout/views/checkout_view.dart';
-import 'package:firecommerce/app/modules/detail/bindings/detail_binding.dart';
-import 'package:firecommerce/app/modules/detail/views/detail_view.dart';
-import 'package:firecommerce/app/modules/edit_alamat/bindings/edit_alamat_binding.dart';
-import 'package:firecommerce/app/modules/edit_alamat/views/edit_alamat_view.dart';
-import 'package:firecommerce/app/modules/edit_profil/bindings/edit_profil_binding.dart';
-import 'package:firecommerce/app/modules/edit_profil/views/edit_profil_view.dart';
-import 'package:firecommerce/app/modules/home/bindings/home_binding.dart';
-import 'package:firecommerce/app/modules/home/views/home_view.dart';
-import 'package:firecommerce/app/modules/login/bindings/login_binding.dart';
-import 'package:firecommerce/app/modules/login/views/login_view.dart';
-import 'package:firecommerce/app/modules/navbar/bindings/navbar_binding.dart';
-import 'package:firecommerce/app/modules/navbar/views/navbar_view.dart';
-import 'package:firecommerce/app/modules/order_sukses/bindings/order_sukses_binding.dart';
-import 'package:firecommerce/app/modules/order_sukses/views/order_sukses_view.dart';
-import 'package:firecommerce/app/modules/pilih_alamat/bindings/pilih_alamat_binding.dart';
-import 'package:firecommerce/app/modules/pilih_alamat/views/pilih_alamat_view.dart';
-import 'package:firecommerce/app/modules/profile/bindings/profile_binding.dart';
-import 'package:firecommerce/app/modules/profile/views/profile_view.dart';
-import 'package:firecommerce/app/modules/register/bindings/register_binding.dart';
-import 'package:firecommerce/app/modules/register/views/register_view.dart';
-import 'package:firecommerce/app/modules/registrasi_toko/bindings/registrasi_toko_binding.dart';
-import 'package:firecommerce/app/modules/registrasi_toko/views/registrasi_toko_view.dart';
-import 'package:firecommerce/app/modules/tambah_alamat/bindings/tambah_alamat_binding.dart';
-import 'package:firecommerce/app/modules/tambah_alamat/views/tambah_alamat_view.dart';
+import '../modules/cart/bindings/cart_binding.dart';
+import '../modules/cart/views/cart_view.dart';
+import '../modules/checkout/bindings/checkout_binding.dart';
+import '../modules/checkout/views/checkout_view.dart';
+import '../modules/detail/bindings/detail_binding.dart';
+import '../modules/detail/views/detail_view.dart';
+import '../modules/edit_alamat/bindings/edit_alamat_binding.dart';
+import '../modules/edit_alamat/views/edit_alamat_view.dart';
+import '../modules/edit_profil/bindings/edit_profil_binding.dart';
+import '../modules/edit_profil/views/edit_profil_view.dart';
+import '../modules/home/bindings/home_binding.dart';
+import '../modules/home/views/home_view.dart';
+import '../modules/login/bindings/login_binding.dart';
+import '../modules/login/views/login_view.dart';
+import '../modules/navbar/bindings/navbar_binding.dart';
+import '../modules/navbar/views/navbar_view.dart';
+import '../modules/order_sukses/bindings/order_sukses_binding.dart';
+import '../modules/order_sukses/views/order_sukses_view.dart';
+import '../modules/pilih_alamat/bindings/pilih_alamat_binding.dart';
+import '../modules/pilih_alamat/views/pilih_alamat_view.dart';
+import '../modules/produk_saya/bindings/produk_saya_binding.dart';
+import '../modules/produk_saya/views/produk_saya_view.dart';
+import '../modules/profile/bindings/profile_binding.dart';
+import '../modules/profile/views/profile_view.dart';
+import '../modules/register/bindings/register_binding.dart';
+import '../modules/register/views/register_view.dart';
+import '../modules/registrasi_toko/bindings/registrasi_toko_binding.dart';
+import '../modules/registrasi_toko/views/registrasi_toko_view.dart';
+import '../modules/tambah_alamat/bindings/tambah_alamat_binding.dart';
+import '../modules/tambah_alamat/views/tambah_alamat_view.dart';
+import '../modules/tambah_produk/bindings/tambah_produk_binding.dart';
+import '../modules/tambah_produk/views/tambah_produk_view.dart';
 
 part 'app_routes.dart';
 
@@ -106,6 +110,16 @@ class AppPages {
       name: _Paths.REGISTRASI_TOKO,
       page: () => RegistrasiTokoView(),
       binding: RegistrasiTokoBinding(),
+    ),
+    GetPage(
+      name: _Paths.TAMBAH_PRODUK,
+      page: () => TambahProdukView(),
+      binding: TambahProdukBinding(),
+    ),
+    GetPage(
+      name: _Paths.PRODUK_SAYA,
+      page: () => ProdukSayaView(),
+      binding: ProdukSayaBinding(),
     ),
   ];
 }

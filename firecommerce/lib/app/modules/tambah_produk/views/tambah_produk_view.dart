@@ -1,12 +1,13 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
 
-import '../controllers/tambah_alamat_controller.dart';
+import '../controllers/tambah_produk_controller.dart';
 
-class TambahAlamatView extends GetView<TambahAlamatController> {
+class TambahProdukView extends GetView<TambahProdukController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +39,7 @@ class TambahAlamatView extends GetView<TambahAlamatController> {
                     ),
                     Center(
                       child: Text(
-                          "Tambah Alamat",
+                          "Tambah Produk",
                           style: GoogleFonts.josefinSans(fontSize: 28, fontWeight: FontWeight.w700)
                       ),
                     ),
@@ -54,7 +55,7 @@ class TambahAlamatView extends GetView<TambahAlamatController> {
                           child: Column(
                             children: [
                               Text(
-                                "Provinsi",
+                                "Nama Produk",
                                 style: GoogleFonts.openSans(fontWeight: FontWeight.w600, fontSize: 18),
                               ),
                               SizedBox(height: 8,),
@@ -64,7 +65,7 @@ class TambahAlamatView extends GetView<TambahAlamatController> {
                                         borderRadius: BorderRadius.circular(10)
                                     )
                                 ),
-                                controller: controller.provinsi,
+                                controller: controller.nama_produk,
                                 style: GoogleFonts.openSans(),
                               )
                             ],
@@ -76,18 +77,41 @@ class TambahAlamatView extends GetView<TambahAlamatController> {
                           child: Column(
                             children: [
                               Text(
-                                "Kabupaten / Kota",
+                                "Harga",
                                 style: GoogleFonts.openSans(fontWeight: FontWeight.w600, fontSize: 18),
                               ),
                               SizedBox(height: 8,),
-                              TextFormField(
-                                decoration: InputDecoration(
-                                    border: OutlineInputBorder(
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey.withOpacity(0.2),
                                         borderRadius: BorderRadius.circular(10)
-                                    )
-                                ),
-                                controller: controller.kabkot,
-                                style: GoogleFonts.openSans(),
+                                    ),
+                                    width: Get.height * 0.07720588235,
+                                    height: Get.height * 0.07720588235,
+                                    child: Center(
+                                      child: Text(
+                                          "Rp",
+                                          style: TextStyle(fontSize: 18)
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: 10,),
+                                  Expanded(
+                                      child: TextFormField(
+                                        keyboardType: TextInputType.number,
+                                        decoration: InputDecoration(
+                                            border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.circular(10)
+                                            )
+                                        ),
+                                        controller: controller.harga,
+                                        style: GoogleFonts.openSans(),
+                                      )
+                                  )
+                                ],
                               )
                             ],
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,41 +122,19 @@ class TambahAlamatView extends GetView<TambahAlamatController> {
                           child: Column(
                             children: [
                               Text(
-                                "Kecamatan",
+                                "Stok",
                                 style: GoogleFonts.openSans(fontWeight: FontWeight.w600, fontSize: 18),
                               ),
                               SizedBox(height: 8,),
                               TextFormField(
-                                decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10)
-                                    )
-                                ),
-                                controller: controller.kec,
-                                style: GoogleFonts.openSans(),
-                              )
-                            ],
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                          ),
-                        ),
-                        SizedBox(height: 10,),
-                        Container(
-                          child: Column(
-                            children: [
-                              Text(
-                                "Kode Pos",
-                                style: GoogleFonts.openSans(fontWeight: FontWeight.w600, fontSize: 18),
-                              ),
-                              SizedBox(height: 8,),
-                              TextFormField(
-                                decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10)
-                                    )
-                                ),
-                                controller: controller.kodepos,
-                                style: GoogleFonts.openSans(),
                                 keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10)
+                                    )
+                                ),
+                                controller: controller.stok,
+                                style: GoogleFonts.openSans(),
                               )
                             ],
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,7 +145,95 @@ class TambahAlamatView extends GetView<TambahAlamatController> {
                           child: Column(
                             children: [
                               Text(
-                                "Detail Alamat",
+                                "Gambar",
+                                style: GoogleFonts.openSans(fontWeight: FontWeight.w600, fontSize: 18),
+                              ),
+                              SizedBox(height: 8,),
+                              InkWell(
+                                onTap: (){
+                                  controller.ambilGambar();
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(color: Colors.grey)
+                                  ),
+                                  width: Get.width,
+                                  height: Get.height * 0.25,
+                                  child: Obx((){
+                                    return controller.ambil.value == false
+                                        ? Center(
+                                            child: Icon(LineIcons.camera, size: 75,),
+                                          )
+                                        : Image.file(
+                                            controller.imageFile.value,
+                                            fit: BoxFit.cover,
+                                          );
+                                  }),
+                                ),
+                              )
+                            ],
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                          ),
+                        ),
+                        SizedBox(height: 10,),
+                        Container(
+                          child: Column(
+                            children: [
+                              Text(
+                                "Kategori",
+                                style: GoogleFonts.openSans(fontWeight: FontWeight.w600, fontSize: 18),
+                              ),
+                              SizedBox(height: 8,),
+                              DropdownButtonFormField2(
+                                  items: controller.categories.map((kategori){
+                                    return DropdownMenuItem<String>(
+                                        value: kategori,
+                                        child: Text(
+                                          kategori,
+                                          style: TextStyle(fontSize: 16),
+                                        )
+                                    );
+                                  }).toList(),
+                                  isExpanded: true,
+                                  decoration: InputDecoration(
+                                    isDense: true,
+                                    contentPadding: EdgeInsets.zero,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+                                  hint: Text(
+                                    'Pilih Kategori',
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                  icon: Icon(
+                                    Icons.arrow_drop_down,
+                                    color: Colors.black45,
+                                  ),
+                                  iconSize: 30,
+                                  buttonHeight: 60,
+                                  buttonPadding: EdgeInsets.only(left: 20, right: 10),
+                                  dropdownDecoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  onChanged: (value) {
+                                    controller.kategori.value = value.toString().toLowerCase();
+                                  },
+                                  onSaved: (value) {
+                                    controller.kategori.value = value.toString().toLowerCase();
+                                  },
+                              )
+                            ],
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                          ),
+                        ),
+                        SizedBox(height: 10,),
+                        Container(
+                          child: Column(
+                            children: [
+                              Text(
+                                "Deskripsi Produk",
                                 style: GoogleFonts.openSans(fontWeight: FontWeight.w600, fontSize: 18),
                               ),
                               SizedBox(height: 8,),
@@ -155,7 +245,7 @@ class TambahAlamatView extends GetView<TambahAlamatController> {
                                         borderRadius: BorderRadius.circular(10)
                                     )
                                 ),
-                                controller: controller.detail,
+                                controller: controller.deskripsi_produk,
                                 style: GoogleFonts.openSans(),
                               )
                             ],
@@ -169,7 +259,7 @@ class TambahAlamatView extends GetView<TambahAlamatController> {
               SizedBox(height: 10,),
               InkWell(
                 onTap: (){
-                  Get.back();
+                  controller.addProduct();
                 },
                 child: Material(
                   borderRadius: BorderRadius.circular(20),
@@ -183,7 +273,7 @@ class TambahAlamatView extends GetView<TambahAlamatController> {
                     height: Get.height * 0.075,
                     child: Center(
                       child: Text(
-                        "Tambah Alamat",
+                        "Tambah Produk",
                         style: GoogleFonts.openSans(color: Colors.white, fontSize: 22),
                       ),
                     ),

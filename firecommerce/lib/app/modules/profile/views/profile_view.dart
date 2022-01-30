@@ -100,7 +100,9 @@ class ProfileView extends GetView<ProfileController> {
                               ),
                             ),
                             InkWell(
-                              onTap: (){},
+                              onTap: (){
+                                Get.toNamed(Routes.PILIH_ALAMAT);
+                              },
                               child: Container(
                                 decoration: BoxDecoration(
                                     color: Colors.white,
@@ -191,7 +193,9 @@ class ProfileView extends GetView<ProfileController> {
                                 ),
                               )
                             : InkWell(
-                                onTap: (){},
+                                onTap: (){
+                                  Get.toNamed(Routes.TAMBAH_PRODUK);
+                                },
                                 child: Container(
                                   decoration: BoxDecoration(
                                       color: Colors.white,
@@ -215,7 +219,35 @@ class ProfileView extends GetView<ProfileController> {
                                   ),
                                 ),
                               ),
-                        SizedBox(height: 20,),
+                        SizedBox(height: 10,),
+                        data["role"] == "pembeli"
+                          ? SizedBox()
+                          : Column(
+                              children: [
+                                InkWell(
+                                  onTap: (){
+                                    Get.toNamed(Routes.PRODUK_SAYA);
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(color: Colors.black)
+                                    ),
+                                    width: Get.width,
+                                    height: Get.height * 0.06,
+                                    padding: EdgeInsets.all(Get.height * 0.01),
+                                    child: Center(
+                                      child: Text(
+                                        "Produk Saya",
+                                        style: GoogleFonts.openSans(fontWeight: FontWeight.w600, fontSize: 20),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 10,),
+                              ],
+                            ),
                         InkWell(
                           onTap: (){
                             controller.authC.logout();

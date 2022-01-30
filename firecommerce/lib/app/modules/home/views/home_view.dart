@@ -3,7 +3,6 @@ import 'package:firecommerce/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
 
@@ -56,7 +55,7 @@ class HomeView extends GetView<HomeController> {
                     )
                   ],
                 ),
-                SizedBox(height: 20,),
+                SizedBox(height: 15,),
                 StreamBuilder<QuerySnapshot<Object?>>(
                     stream: controller.streamDataUser(),
                     builder: (context, snapshot){
@@ -78,7 +77,7 @@ class HomeView extends GetView<HomeController> {
                   "Butuh sesuatu ?",
                   style: GoogleFonts.openSans(fontSize: 20, color: Colors.grey),
                 ),
-                SizedBox(height: 20,),
+                SizedBox(height: 15,),
                 Container(
                   width: Get.width,
                   height: Get.height * 0.2,
@@ -196,462 +195,622 @@ class HomeView extends GetView<HomeController> {
                       controller: controller.tabController,
                       physics: NeverScrollableScrollPhysics(),
                       children: [
-                        Container(
-                          child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: 10,
-                              itemBuilder: (context, index){
-                                return index != 9
-                                    ? InkWell(
-                                        onTap: (){
-                                          Get.toNamed(Routes.DETAIL);
-                                        },
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              color: Colors.grey.withOpacity(0.2),
-                                              borderRadius: BorderRadius.circular(20)
-                                          ),
-                                          margin: EdgeInsets.only(right: Get.height * 0.02),
-                                          height: Get.height,
-                                          width: Get.height * 0.22,
-                                          child: Column(
-                                            children: [
-                                              Expanded(
-                                                  child: Container()
-                                              ),
-                                              Container(
+                        StreamBuilder<QuerySnapshot<Object?>>(
+                            stream: controller.streamProductBaju(),
+                            builder: (context, snapshot){
+                              if(snapshot.connectionState == ConnectionState.active){
+                                var listAllDocs = snapshot.data!.docs;
+                                return Container(
+                                  child: listAllDocs.length == 0
+                                      ? Center(
+                                          child: Text("Barang belum tersedia", style: TextStyle(fontSize: 16),),
+                                        )
+                                      : ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: listAllDocs.length,
+                                          itemBuilder: (context, index){
+                                            var data = listAllDocs[index].data() as Map<String, dynamic>;
+                                            return index != 9
+                                                ? InkWell(
+                                                    onTap: (){
+                                                      Get.toNamed(Routes.DETAIL, arguments: listAllDocs[index].id);
+                                                    },
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.grey.withOpacity(0.2),
+                                                          borderRadius: BorderRadius.circular(20)
+                                                      ),
+                                                      margin: EdgeInsets.only(right: Get.height * 0.02),
+                                                      height: Get.height,
+                                                      width: Get.height * 0.22,
+                                                      child: Column(
+                                                        children: [
+                                                          Expanded(
+                                                              child: Container(
+                                                                decoration: BoxDecoration(
+                                                                  borderRadius: BorderRadius.only(
+                                                                    topLeft: Radius.circular(20),
+                                                                    topRight: Radius.circular(20),
+                                                                  ),
+                                                                  image: DecorationImage(
+                                                                      image: NetworkImage("${data["gambar"]}"),
+                                                                      fit: BoxFit.cover
+                                                                  )
+                                                                ),
+                                                                margin: EdgeInsets.only(top: Get.height * 0.01, left: Get.height * 0.01, right: Get.height * 0.01),
+                                                              )
+                                                          ),
+                                                          Container(
+                                                            decoration: BoxDecoration(
+                                                              color: Colors.white,
+                                                              borderRadius: BorderRadius.only(
+                                                                  bottomLeft: Radius.circular(20),
+                                                                  bottomRight: Radius.circular(20)
+                                                              ),
+                                                            ),
+                                                            margin: EdgeInsets.only(bottom: Get.height * 0.01, left: Get.height * 0.01, right: Get.height * 0.01),
+                                                            width: Get.width,
+                                                            padding: EdgeInsets.symmetric(horizontal: Get.height * 0.015, vertical: Get.height * 0.01),
+                                                            height: Get.height * 0.08,
+                                                            child: Column(
+                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                              children: [
+                                                                Text(
+                                                                  "${data["nama_produk"]}",
+                                                                  style: GoogleFonts.openSans(fontSize: 16),
+                                                                  maxLines: 1,
+                                                                  overflow: TextOverflow.ellipsis,
+                                                                  softWrap: false,
+                                                                ),
+                                                                Text(
+                                                                  "${controller.formatCurrency.format(data["harga"])}",
+                                                                  style: GoogleFonts.openSans(fontSize: 18, fontWeight: FontWeight.bold),
+                                                                  maxLines: 1,
+                                                                  overflow: TextOverflow.ellipsis,
+                                                                  softWrap: false,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  )
+                                                : InkWell(
+                                              onTap: (){
+                                                Get.toNamed(Routes.DETAIL, arguments: listAllDocs[index].id);
+                                              },
+                                              child: Container(
                                                 decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius: BorderRadius.only(
-                                                      bottomLeft: Radius.circular(20),
-                                                      bottomRight: Radius.circular(20)
-                                                  ),
+                                                    color: Colors.grey.withOpacity(0.2),
+                                                    borderRadius: BorderRadius.circular(20)
                                                 ),
-                                                margin: EdgeInsets.only(bottom: Get.height * 0.01, left: Get.height * 0.01, right: Get.height * 0.01),
-                                                width: Get.width,
-                                                padding: EdgeInsets.symmetric(horizontal: Get.height * 0.015, vertical: Get.height * 0.01),
-                                                height: Get.height * 0.08,
+                                                height: Get.height,
+                                                width: Get.height * 0.22,
                                                 child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
-                                                    Text(
-                                                      "Nama Produk Barang",
-                                                      style: GoogleFonts.openSans(fontSize: 16),
-                                                      maxLines: 1,
-                                                      overflow: TextOverflow.ellipsis,
-                                                      softWrap: false,
+                                                    Expanded(
+                                                        child: Container(
+                                                          decoration: BoxDecoration(
+                                                              borderRadius: BorderRadius.only(
+                                                                topLeft: Radius.circular(20),
+                                                                topRight: Radius.circular(20),
+                                                              ),
+                                                              image: DecorationImage(
+                                                                  image: NetworkImage("${data["gambar"]}"),
+                                                                  fit: BoxFit.cover
+                                                              )
+                                                          ),
+                                                          margin: EdgeInsets.only(top: Get.height * 0.01, left: Get.height * 0.01, right: Get.height * 0.01),
+                                                        )
                                                     ),
-                                                    Text(
-                                                      "${controller.formatCurrency.format(50000)}",
-                                                      style: GoogleFonts.openSans(fontSize: 18, fontWeight: FontWeight.bold),
-                                                      maxLines: 1,
-                                                      overflow: TextOverflow.ellipsis,
-                                                      softWrap: false,
-                                                    ),
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius: BorderRadius.only(
+                                                            bottomLeft: Radius.circular(20),
+                                                            bottomRight: Radius.circular(20)
+                                                        ),
+                                                      ),
+                                                      margin: EdgeInsets.only(bottom: Get.height * 0.01, left: Get.height * 0.01, right: Get.height * 0.01),
+                                                      width: Get.width,
+                                                      padding: EdgeInsets.symmetric(horizontal: Get.height * 0.015, vertical: Get.height * 0.01),
+                                                      height: Get.height * 0.08,
+                                                      child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          Text(
+                                                            "${data["nama_produk"]}",
+                                                            style: GoogleFonts.openSans(fontSize: 16),
+                                                            maxLines: 1,
+                                                            overflow: TextOverflow.ellipsis,
+                                                            softWrap: false,
+                                                          ),
+                                                          Text(
+                                                            "${controller.formatCurrency.format(data["harga"])}",
+                                                            style: GoogleFonts.openSans(fontSize: 18, fontWeight: FontWeight.bold),
+                                                            maxLines: 1,
+                                                            overflow: TextOverflow.ellipsis,
+                                                            softWrap: false,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    )
                                                   ],
                                                 ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
+                                              ),
+                                            );
+                                          }
                                       )
-                                    : InkWell(
-                                        onTap: (){
-                                          Get.toNamed(Routes.DETAIL);
-                                        },
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              color: Colors.grey.withOpacity(0.2),
-                                              borderRadius: BorderRadius.circular(20)
-                                          ),
-                                          height: Get.height,
-                                          width: Get.height * 0.22,
-                                          child: Column(
-                                            children: [
-                                              Expanded(
-                                                  child: Container()
+                                );
+                              }
+                              return Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                        ),
+                        StreamBuilder<QuerySnapshot<Object?>>(
+                            stream: controller.streamProductKomputer(),
+                            builder: (context, snapshot){
+                              if(snapshot.connectionState == ConnectionState.active){
+                                var listAllDocs = snapshot.data!.docs;
+                                return Container(
+                                    child: listAllDocs.length == 0
+                                        ? Center(
+                                      child: Text("Barang belum tersedia", style: TextStyle(fontSize: 16),),
+                                    )
+                                        : ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: listAllDocs.length,
+                                        itemBuilder: (context, index){
+                                          var data = listAllDocs[index].data() as Map<String, dynamic>;
+                                          return index != 9
+                                              ? InkWell(
+                                            onTap: (){
+                                              Get.toNamed(Routes.DETAIL, arguments: listAllDocs[index].id);
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  color: Colors.grey.withOpacity(0.2),
+                                                  borderRadius: BorderRadius.circular(20)
                                               ),
-                                              Container(
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius: BorderRadius.only(
-                                                      bottomLeft: Radius.circular(20),
-                                                      bottomRight: Radius.circular(20)
+                                              margin: EdgeInsets.only(right: Get.height * 0.02),
+                                              height: Get.height,
+                                              width: Get.height * 0.22,
+                                              child: Column(
+                                                children: [
+                                                  Expanded(
+                                                      child: Container(
+                                                        decoration: BoxDecoration(
+                                                            borderRadius: BorderRadius.only(
+                                                              topLeft: Radius.circular(20),
+                                                              topRight: Radius.circular(20),
+                                                            ),
+                                                            image: DecorationImage(
+                                                                image: NetworkImage("${data["gambar"]}"),
+                                                                fit: BoxFit.cover
+                                                            )
+                                                        ),
+                                                        margin: EdgeInsets.only(top: Get.height * 0.01, left: Get.height * 0.01, right: Get.height * 0.01),
+                                                      )
                                                   ),
-                                                ),
-                                                margin: EdgeInsets.only(bottom: Get.height * 0.01, left: Get.height * 0.01, right: Get.height * 0.01),
-                                                width: Get.width,
-                                                padding: EdgeInsets.symmetric(horizontal: Get.height * 0.015, vertical: Get.height * 0.01),
-                                                height: Get.height * 0.08,
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      "Nama Produk Barang",
-                                                      style: GoogleFonts.openSans(fontSize: 16),
-                                                      maxLines: 1,
-                                                      overflow: TextOverflow.ellipsis,
-                                                      softWrap: false,
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius: BorderRadius.only(
+                                                          bottomLeft: Radius.circular(20),
+                                                          bottomRight: Radius.circular(20)
+                                                      ),
                                                     ),
-                                                    Text(
-                                                      "${controller.formatCurrency.format(50000)}",
-                                                      style: GoogleFonts.openSans(fontSize: 18, fontWeight: FontWeight.bold),
-                                                      maxLines: 1,
-                                                      overflow: TextOverflow.ellipsis,
-                                                      softWrap: false,
+                                                    margin: EdgeInsets.only(bottom: Get.height * 0.01, left: Get.height * 0.01, right: Get.height * 0.01),
+                                                    width: Get.width,
+                                                    padding: EdgeInsets.symmetric(horizontal: Get.height * 0.015, vertical: Get.height * 0.01),
+                                                    height: Get.height * 0.08,
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text(
+                                                          "${data["nama_produk"]}",
+                                                          style: GoogleFonts.openSans(fontSize: 16),
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow.ellipsis,
+                                                          softWrap: false,
+                                                        ),
+                                                        Text(
+                                                          "${controller.formatCurrency.format(data["harga"])}",
+                                                          style: GoogleFonts.openSans(fontSize: 18, fontWeight: FontWeight.bold),
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow.ellipsis,
+                                                          softWrap: false,
+                                                        ),
+                                                      ],
                                                     ),
-                                                  ],
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                              }
-                          ),
-                        ),
-                        Container(
-                          child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: 10,
-                              itemBuilder: (context, index){
-                                return index != 9
-                                    ? InkWell(
-                                  onTap: (){
-                                    Get.toNamed(Routes.DETAIL);
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        borderRadius: BorderRadius.circular(20)
-                                    ),
-                                    margin: EdgeInsets.only(right: Get.height * 0.02),
-                                    height: Get.height,
-                                    width: Get.height * 0.22,
-                                    child: Column(
-                                      children: [
-                                        Expanded(
-                                            child: Container()
-                                        ),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.only(
-                                                bottomLeft: Radius.circular(20),
-                                                bottomRight: Radius.circular(20)
+                                                  )
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                          margin: EdgeInsets.only(bottom: Get.height * 0.01, left: Get.height * 0.01, right: Get.height * 0.01),
-                                          width: Get.width,
-                                          padding: EdgeInsets.symmetric(horizontal: Get.height * 0.015, vertical: Get.height * 0.01),
-                                          height: Get.height * 0.08,
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Nama Produk Barang",
-                                                style: GoogleFonts.openSans(fontSize: 16),
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                softWrap: false,
+                                          )
+                                              : InkWell(
+                                            onTap: (){
+                                              Get.toNamed(Routes.DETAIL, arguments: listAllDocs[index].id);
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  color: Colors.grey.withOpacity(0.2),
+                                                  borderRadius: BorderRadius.circular(20)
                                               ),
-                                              Text(
-                                                "${controller.formatCurrency.format(50000)}",
-                                                style: GoogleFonts.openSans(fontSize: 18, fontWeight: FontWeight.bold),
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                softWrap: false,
+                                              height: Get.height,
+                                              width: Get.height * 0.22,
+                                              child: Column(
+                                                children: [
+                                                  Expanded(
+                                                      child: Container(
+                                                        decoration: BoxDecoration(
+                                                            borderRadius: BorderRadius.only(
+                                                              topLeft: Radius.circular(20),
+                                                              topRight: Radius.circular(20),
+                                                            ),
+                                                            image: DecorationImage(
+                                                                image: NetworkImage("${data["gambar"]}"),
+                                                                fit: BoxFit.cover
+                                                            )
+                                                        ),
+                                                        margin: EdgeInsets.only(top: Get.height * 0.01, left: Get.height * 0.01, right: Get.height * 0.01),
+                                                      )
+                                                  ),
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius: BorderRadius.only(
+                                                          bottomLeft: Radius.circular(20),
+                                                          bottomRight: Radius.circular(20)
+                                                      ),
+                                                    ),
+                                                    margin: EdgeInsets.only(bottom: Get.height * 0.01, left: Get.height * 0.01, right: Get.height * 0.01),
+                                                    width: Get.width,
+                                                    padding: EdgeInsets.symmetric(horizontal: Get.height * 0.015, vertical: Get.height * 0.01),
+                                                    height: Get.height * 0.08,
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text(
+                                                          "${data["nama_produk"]}",
+                                                          style: GoogleFonts.openSans(fontSize: 16),
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow.ellipsis,
+                                                          softWrap: false,
+                                                        ),
+                                                        Text(
+                                                          "${controller.formatCurrency.format(data["harga"])}",
+                                                          style: GoogleFonts.openSans(fontSize: 18, fontWeight: FontWeight.bold),
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow.ellipsis,
+                                                          softWrap: false,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )
+                                                ],
                                               ),
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                )
-                                    : InkWell(
-                                  onTap: (){
-                                    Get.toNamed(Routes.DETAIL);
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        borderRadius: BorderRadius.circular(20)
-                                    ),
-                                    height: Get.height,
-                                    width: Get.height * 0.22,
-                                    child: Column(
-                                      children: [
-                                        Expanded(
-                                            child: Container()
-                                        ),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.only(
-                                                bottomLeft: Radius.circular(20),
-                                                bottomRight: Radius.circular(20)
                                             ),
-                                          ),
-                                          margin: EdgeInsets.only(bottom: Get.height * 0.01, left: Get.height * 0.01, right: Get.height * 0.01),
-                                          width: Get.width,
-                                          padding: EdgeInsets.symmetric(horizontal: Get.height * 0.015, vertical: Get.height * 0.01),
-                                          height: Get.height * 0.08,
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Nama Produk Barang",
-                                                style: GoogleFonts.openSans(fontSize: 16),
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                softWrap: false,
-                                              ),
-                                              Text(
-                                                "${controller.formatCurrency.format(50000)}",
-                                                style: GoogleFonts.openSans(fontSize: 18, fontWeight: FontWeight.bold),
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                softWrap: false,
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
+                                          );
+                                        }
+                                    )
                                 );
                               }
-                          ),
+                              return Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
                         ),
-                        Container(
-                          child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: 10,
-                              itemBuilder: (context, index){
-                                return index != 9
-                                    ? InkWell(
-                                  onTap: (){
-                                    Get.toNamed(Routes.DETAIL);
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        borderRadius: BorderRadius.circular(20)
-                                    ),
-                                    margin: EdgeInsets.only(right: Get.height * 0.02),
-                                    height: Get.height,
-                                    width: Get.height * 0.22,
-                                    child: Column(
-                                      children: [
-                                        Expanded(
-                                            child: Container()
-                                        ),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.only(
-                                                bottomLeft: Radius.circular(20),
-                                                bottomRight: Radius.circular(20)
+                        StreamBuilder<QuerySnapshot<Object?>>(
+                            stream: controller.streamProductLaptop(),
+                            builder: (context, snapshot){
+                              if(snapshot.connectionState == ConnectionState.active){
+                                var listAllDocs = snapshot.data!.docs;
+                                return Container(
+                                    child: listAllDocs.length == 0
+                                        ? Center(
+                                      child: Text("Barang belum tersedia", style: TextStyle(fontSize: 16),),
+                                    )
+                                        : ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: listAllDocs.length,
+                                        itemBuilder: (context, index){
+                                          var data = listAllDocs[index].data() as Map<String, dynamic>;
+                                          return index != 9
+                                              ? InkWell(
+                                            onTap: (){
+                                              Get.toNamed(Routes.DETAIL, arguments: listAllDocs[index].id);
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  color: Colors.grey.withOpacity(0.2),
+                                                  borderRadius: BorderRadius.circular(20)
+                                              ),
+                                              margin: EdgeInsets.only(right: Get.height * 0.02),
+                                              height: Get.height,
+                                              width: Get.height * 0.22,
+                                              child: Column(
+                                                children: [
+                                                  Expanded(
+                                                      child: Container(
+                                                        decoration: BoxDecoration(
+                                                            borderRadius: BorderRadius.only(
+                                                              topLeft: Radius.circular(20),
+                                                              topRight: Radius.circular(20),
+                                                            ),
+                                                            image: DecorationImage(
+                                                                image: NetworkImage("${data["gambar"]}"),
+                                                                fit: BoxFit.cover
+                                                            )
+                                                        ),
+                                                        margin: EdgeInsets.only(top: Get.height * 0.01, left: Get.height * 0.01, right: Get.height * 0.01),
+                                                      )
+                                                  ),
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius: BorderRadius.only(
+                                                          bottomLeft: Radius.circular(20),
+                                                          bottomRight: Radius.circular(20)
+                                                      ),
+                                                    ),
+                                                    margin: EdgeInsets.only(bottom: Get.height * 0.01, left: Get.height * 0.01, right: Get.height * 0.01),
+                                                    width: Get.width,
+                                                    padding: EdgeInsets.symmetric(horizontal: Get.height * 0.015, vertical: Get.height * 0.01),
+                                                    height: Get.height * 0.08,
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text(
+                                                          "${data["nama_produk"]}",
+                                                          style: GoogleFonts.openSans(fontSize: 16),
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow.ellipsis,
+                                                          softWrap: false,
+                                                        ),
+                                                        Text(
+                                                          "${controller.formatCurrency.format(data["harga"])}",
+                                                          style: GoogleFonts.openSans(fontSize: 18, fontWeight: FontWeight.bold),
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow.ellipsis,
+                                                          softWrap: false,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                          margin: EdgeInsets.only(bottom: Get.height * 0.01, left: Get.height * 0.01, right: Get.height * 0.01),
-                                          width: Get.width,
-                                          padding: EdgeInsets.symmetric(horizontal: Get.height * 0.015, vertical: Get.height * 0.01),
-                                          height: Get.height * 0.08,
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Nama Produk Barang",
-                                                style: GoogleFonts.openSans(fontSize: 16),
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                softWrap: false,
+                                          )
+                                              : InkWell(
+                                            onTap: (){
+                                              Get.toNamed(Routes.DETAIL, arguments: listAllDocs[index].id);
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  color: Colors.grey.withOpacity(0.2),
+                                                  borderRadius: BorderRadius.circular(20)
                                               ),
-                                              Text(
-                                                "${controller.formatCurrency.format(50000)}",
-                                                style: GoogleFonts.openSans(fontSize: 18, fontWeight: FontWeight.bold),
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                softWrap: false,
+                                              height: Get.height,
+                                              width: Get.height * 0.22,
+                                              child: Column(
+                                                children: [
+                                                  Expanded(
+                                                      child: Container(
+                                                        decoration: BoxDecoration(
+                                                            borderRadius: BorderRadius.only(
+                                                              topLeft: Radius.circular(20),
+                                                              topRight: Radius.circular(20),
+                                                            ),
+                                                            image: DecorationImage(
+                                                                image: NetworkImage("${data["gambar"]}"),
+                                                                fit: BoxFit.cover
+                                                            )
+                                                        ),
+                                                        margin: EdgeInsets.only(top: Get.height * 0.01, left: Get.height * 0.01, right: Get.height * 0.01),
+                                                      )
+                                                  ),
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius: BorderRadius.only(
+                                                          bottomLeft: Radius.circular(20),
+                                                          bottomRight: Radius.circular(20)
+                                                      ),
+                                                    ),
+                                                    margin: EdgeInsets.only(bottom: Get.height * 0.01, left: Get.height * 0.01, right: Get.height * 0.01),
+                                                    width: Get.width,
+                                                    padding: EdgeInsets.symmetric(horizontal: Get.height * 0.015, vertical: Get.height * 0.01),
+                                                    height: Get.height * 0.08,
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text(
+                                                          "${data["nama_produk"]}",
+                                                          style: GoogleFonts.openSans(fontSize: 16),
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow.ellipsis,
+                                                          softWrap: false,
+                                                        ),
+                                                        Text(
+                                                          "${controller.formatCurrency.format(data["harga"])}",
+                                                          style: GoogleFonts.openSans(fontSize: 18, fontWeight: FontWeight.bold),
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow.ellipsis,
+                                                          softWrap: false,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )
+                                                ],
                                               ),
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                )
-                                    : InkWell(
-                                  onTap: (){
-                                    Get.toNamed(Routes.DETAIL);
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        borderRadius: BorderRadius.circular(20)
-                                    ),
-                                    height: Get.height,
-                                    width: Get.height * 0.22,
-                                    child: Column(
-                                      children: [
-                                        Expanded(
-                                            child: Container()
-                                        ),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.only(
-                                                bottomLeft: Radius.circular(20),
-                                                bottomRight: Radius.circular(20)
                                             ),
-                                          ),
-                                          margin: EdgeInsets.only(bottom: Get.height * 0.01, left: Get.height * 0.01, right: Get.height * 0.01),
-                                          width: Get.width,
-                                          padding: EdgeInsets.symmetric(horizontal: Get.height * 0.015, vertical: Get.height * 0.01),
-                                          height: Get.height * 0.08,
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Nama Produk Barang",
-                                                style: GoogleFonts.openSans(fontSize: 16),
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                softWrap: false,
-                                              ),
-                                              Text(
-                                                "${controller.formatCurrency.format(50000)}",
-                                                style: GoogleFonts.openSans(fontSize: 18, fontWeight: FontWeight.bold),
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                softWrap: false,
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
+                                          );
+                                        }
+                                    )
                                 );
                               }
-                          ),
+                              return Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
                         ),
-                        Container(
-                          child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: 10,
-                              itemBuilder: (context, index){
-                                return index != 9
-                                    ? InkWell(
-                                  onTap: (){
-                                    Get.toNamed(Routes.DETAIL);
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        borderRadius: BorderRadius.circular(20)
-                                    ),
-                                    margin: EdgeInsets.only(right: Get.height * 0.02),
-                                    height: Get.height,
-                                    width: Get.height * 0.22,
-                                    child: Column(
-                                      children: [
-                                        Expanded(
-                                            child: Container()
-                                        ),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.only(
-                                                bottomLeft: Radius.circular(20),
-                                                bottomRight: Radius.circular(20)
+                        StreamBuilder<QuerySnapshot<Object?>>(
+                            stream: controller.streamProductGame(),
+                            builder: (context, snapshot){
+                              if(snapshot.connectionState == ConnectionState.active){
+                                var listAllDocs = snapshot.data!.docs;
+                                return Container(
+                                    child: listAllDocs.length == 0
+                                        ? Center(
+                                      child: Text("Barang belum tersedia", style: TextStyle(fontSize: 16),),
+                                    )
+                                        : ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: listAllDocs.length,
+                                        itemBuilder: (context, index){
+                                          var data = listAllDocs[index].data() as Map<String, dynamic>;
+                                          return index != 9
+                                              ? InkWell(
+                                            onTap: (){
+                                              Get.toNamed(Routes.DETAIL, arguments: listAllDocs[index].id);
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  color: Colors.grey.withOpacity(0.2),
+                                                  borderRadius: BorderRadius.circular(20)
+                                              ),
+                                              margin: EdgeInsets.only(right: Get.height * 0.02),
+                                              height: Get.height,
+                                              width: Get.height * 0.22,
+                                              child: Column(
+                                                children: [
+                                                  Expanded(
+                                                      child: Container(
+                                                        decoration: BoxDecoration(
+                                                            borderRadius: BorderRadius.only(
+                                                              topLeft: Radius.circular(20),
+                                                              topRight: Radius.circular(20),
+                                                            ),
+                                                            image: DecorationImage(
+                                                                image: NetworkImage("${data["gambar"]}"),
+                                                                fit: BoxFit.cover
+                                                            )
+                                                        ),
+                                                        margin: EdgeInsets.only(top: Get.height * 0.01, left: Get.height * 0.01, right: Get.height * 0.01),
+                                                      )
+                                                  ),
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius: BorderRadius.only(
+                                                          bottomLeft: Radius.circular(20),
+                                                          bottomRight: Radius.circular(20)
+                                                      ),
+                                                    ),
+                                                    margin: EdgeInsets.only(bottom: Get.height * 0.01, left: Get.height * 0.01, right: Get.height * 0.01),
+                                                    width: Get.width,
+                                                    padding: EdgeInsets.symmetric(horizontal: Get.height * 0.015, vertical: Get.height * 0.01),
+                                                    height: Get.height * 0.08,
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text(
+                                                          "${data["nama_produk"]}",
+                                                          style: GoogleFonts.openSans(fontSize: 16),
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow.ellipsis,
+                                                          softWrap: false,
+                                                        ),
+                                                        Text(
+                                                          "${controller.formatCurrency.format(data["harga"])}",
+                                                          style: GoogleFonts.openSans(fontSize: 18, fontWeight: FontWeight.bold),
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow.ellipsis,
+                                                          softWrap: false,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                          margin: EdgeInsets.only(bottom: Get.height * 0.01, left: Get.height * 0.01, right: Get.height * 0.01),
-                                          width: Get.width,
-                                          padding: EdgeInsets.symmetric(horizontal: Get.height * 0.015, vertical: Get.height * 0.01),
-                                          height: Get.height * 0.08,
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Nama Produk Barang",
-                                                style: GoogleFonts.openSans(fontSize: 16),
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                softWrap: false,
+                                          )
+                                              : InkWell(
+                                            onTap: (){
+                                              Get.toNamed(Routes.DETAIL, arguments: listAllDocs[index].id);
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  color: Colors.grey.withOpacity(0.2),
+                                                  borderRadius: BorderRadius.circular(20)
                                               ),
-                                              Text(
-                                                "${controller.formatCurrency.format(50000)}",
-                                                style: GoogleFonts.openSans(fontSize: 18, fontWeight: FontWeight.bold),
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                softWrap: false,
+                                              height: Get.height,
+                                              width: Get.height * 0.22,
+                                              child: Column(
+                                                children: [
+                                                  Expanded(
+                                                      child: Container(
+                                                        decoration: BoxDecoration(
+                                                            borderRadius: BorderRadius.only(
+                                                              topLeft: Radius.circular(20),
+                                                              topRight: Radius.circular(20),
+                                                            ),
+                                                            image: DecorationImage(
+                                                                image: NetworkImage("${data["gambar"]}"),
+                                                                fit: BoxFit.cover
+                                                            )
+                                                        ),
+                                                        margin: EdgeInsets.only(top: Get.height * 0.01, left: Get.height * 0.01, right: Get.height * 0.01),
+                                                      )
+                                                  ),
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius: BorderRadius.only(
+                                                          bottomLeft: Radius.circular(20),
+                                                          bottomRight: Radius.circular(20)
+                                                      ),
+                                                    ),
+                                                    margin: EdgeInsets.only(bottom: Get.height * 0.01, left: Get.height * 0.01, right: Get.height * 0.01),
+                                                    width: Get.width,
+                                                    padding: EdgeInsets.symmetric(horizontal: Get.height * 0.015, vertical: Get.height * 0.01),
+                                                    height: Get.height * 0.08,
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text(
+                                                          "${data["nama_produk"]}",
+                                                          style: GoogleFonts.openSans(fontSize: 16),
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow.ellipsis,
+                                                          softWrap: false,
+                                                        ),
+                                                        Text(
+                                                          "${controller.formatCurrency.format(data["harga"])}",
+                                                          style: GoogleFonts.openSans(fontSize: 18, fontWeight: FontWeight.bold),
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow.ellipsis,
+                                                          softWrap: false,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )
+                                                ],
                                               ),
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                )
-                                    : InkWell(
-                                  onTap: (){
-                                    Get.toNamed(Routes.DETAIL);
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        borderRadius: BorderRadius.circular(20)
-                                    ),
-                                    height: Get.height,
-                                    width: Get.height * 0.22,
-                                    child: Column(
-                                      children: [
-                                        Expanded(
-                                            child: Container()
-                                        ),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.only(
-                                                bottomLeft: Radius.circular(20),
-                                                bottomRight: Radius.circular(20)
                                             ),
-                                          ),
-                                          margin: EdgeInsets.only(bottom: Get.height * 0.01, left: Get.height * 0.01, right: Get.height * 0.01),
-                                          width: Get.width,
-                                          padding: EdgeInsets.symmetric(horizontal: Get.height * 0.015, vertical: Get.height * 0.01),
-                                          height: Get.height * 0.08,
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Nama Produk Barang",
-                                                style: GoogleFonts.openSans(fontSize: 16),
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                softWrap: false,
-                                              ),
-                                              Text(
-                                                "${controller.formatCurrency.format(50000)}",
-                                                style: GoogleFonts.openSans(fontSize: 18, fontWeight: FontWeight.bold),
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                softWrap: false,
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
+                                          );
+                                        }
+                                    )
                                 );
                               }
-                          ),
-                        ),
+                              return Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                        )
                       ]
                   ),
                 )

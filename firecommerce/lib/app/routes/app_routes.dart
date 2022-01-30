@@ -18,6 +18,8 @@ abstract class Routes {
   static const ORDER_SUKSES = _Paths.ORDER_SUKSES;
   static const EDIT_PROFIL = _Paths.EDIT_PROFIL;
   static const REGISTRASI_TOKO = _Paths.REGISTRASI_TOKO;
+  static const TAMBAH_PRODUK = _Paths.TAMBAH_PRODUK;
+  static const PRODUK_SAYA = _Paths.PRODUK_SAYA;
 }
 
 abstract class _Paths {
@@ -35,4 +37,6 @@ abstract class _Paths {
   static const ORDER_SUKSES = '/order-sukses';
   static const EDIT_PROFIL = '/edit-profil';
   static const REGISTRASI_TOKO = '/registrasi-toko';
+  static const TAMBAH_PRODUK = '/tambah-produk';
+  static const PRODUK_SAYA = '/produk-saya';
 }

@@ -18,6 +18,7 @@ class HomeController extends GetxController  with SingleGetTickerProviderMixin {
   void onInit() {
     // TODO: implement onInit
     tabController = TabController(length: 4, vsync: this);
+    print(Get.height);
   }
 
   Future<QuerySnapshot<Object?>> getDataUser()async{
@@ -30,5 +31,29 @@ class HomeController extends GetxController  with SingleGetTickerProviderMixin {
     CollectionReference user = firestore.collection('users');
 
     return user.where('uid', isEqualTo: authC.box.read('uid')).snapshots();
+  }
+
+  Stream<QuerySnapshot<Object?>> streamProductBaju(){
+    CollectionReference products = firestore.collection('products');
+
+    return products.where('kategori', isEqualTo: 'baju').snapshots();
+  }
+
+  Stream<QuerySnapshot<Object?>> streamProductKomputer(){
+    CollectionReference products = firestore.collection('products');
+
+    return products.where('kategori', isEqualTo: 'komputer').snapshots();
+  }
+
+  Stream<QuerySnapshot<Object?>> streamProductLaptop(){
+    CollectionReference products = firestore.collection('products');
+
+    return products.where('kategori', isEqualTo: 'laptop').snapshots();
+  }
+
+  Stream<QuerySnapshot<Object?>> streamProductGame(){
+    CollectionReference products = firestore.collection('products');
+
+    return products.where('kategori', isEqualTo: 'game').snapshots();
   }
 }
