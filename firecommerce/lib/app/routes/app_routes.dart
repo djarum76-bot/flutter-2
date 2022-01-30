@@ -17,6 +17,7 @@ abstract class Routes {
   static const EDIT_ALAMAT = _Paths.EDIT_ALAMAT;
   static const ORDER_SUKSES = _Paths.ORDER_SUKSES;
   static const EDIT_PROFIL = _Paths.EDIT_PROFIL;
+  static const REGISTRASI_TOKO = _Paths.REGISTRASI_TOKO;
 }
 
 abstract class _Paths {
@@ -33,4 +34,5 @@ abstract class _Paths {
   static const EDIT_ALAMAT = '/edit-alamat';
   static const ORDER_SUKSES = '/order-sukses';
   static const EDIT_PROFIL = '/edit-profil';
+  static const REGISTRASI_TOKO = '/registrasi-toko';
 }

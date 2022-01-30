@@ -24,6 +24,8 @@ import 'package:firecommerce/app/modules/profile/bindings/profile_binding.dart';
 import 'package:firecommerce/app/modules/profile/views/profile_view.dart';
 import 'package:firecommerce/app/modules/register/bindings/register_binding.dart';
 import 'package:firecommerce/app/modules/register/views/register_view.dart';
+import 'package:firecommerce/app/modules/registrasi_toko/bindings/registrasi_toko_binding.dart';
+import 'package:firecommerce/app/modules/registrasi_toko/views/registrasi_toko_view.dart';
 import 'package:firecommerce/app/modules/tambah_alamat/bindings/tambah_alamat_binding.dart';
 import 'package:firecommerce/app/modules/tambah_alamat/views/tambah_alamat_view.dart';
 
@@ -99,6 +101,11 @@ class AppPages {
       name: _Paths.EDIT_PROFIL,
       page: () => EditProfilView(),
       binding: EditProfilBinding(),
+    ),
+    GetPage(
+      name: _Paths.REGISTRASI_TOKO,
+      page: () => RegistrasiTokoView(),
+      binding: RegistrasiTokoBinding(),
     ),
   ];
 }

@@ -17,7 +17,7 @@ class HomeController extends GetxController  with SingleGetTickerProviderMixin {
   @override
   void onInit() {
     // TODO: implement onInit
-    tabController = TabController(length: 10, vsync: this);
+    tabController = TabController(length: 4, vsync: this);
   }
 
   Future<QuerySnapshot<Object?>> getDataUser()async{

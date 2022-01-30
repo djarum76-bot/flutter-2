@@ -35,7 +35,10 @@ class AuthController extends GetxController {
         "profile": "",
         "coin": 0,
         "role": "pembeli",
-        "created_at": dateNow
+        "created_at": dateNow,
+        "nama_toko" : "",
+        "no_hp" : "",
+        "alamat_toko" : "",
       });
 
       Get.defaultDialog(
@@ -152,7 +155,10 @@ class AuthController extends GetxController {
           "profile": "",
           "coin": 0,
           "role": "pembeli",
-          "created_at": dateNow
+          "created_at": dateNow,
+          "nama_toko" : "",
+          "no_hp" : "",
+          "alamat_toko" : "",
         });
       }
 
