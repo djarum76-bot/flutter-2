@@ -182,29 +182,56 @@ class DetailView extends GetView<DetailController> {
                                 )
                               ],
                             )
-                          : InkWell(
-                              onTap: (){
-                                Get.offNamed(Routes.CART);
-                              },
-                              child: Material(
-                                borderRadius: BorderRadius.circular(20),
-                                elevation: 5,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: Colors.deepOrangeAccent
-                                  ),
-                                  width: Get.width,
-                                  height: Get.height * 0.075,
-                                  child: Center(
-                                    child: Text(
-                                      "Add To Cart",
-                                      style: GoogleFonts.openSans(color: Colors.white, fontSize: 22),
+                          : data["stok"] != 0
+                              ? InkWell(
+                                  onTap: (){
+                                    controller.addCart(data["nama_produk"], data["harga"], data["gambar"], snapshot.data!.id, data["stok"]);
+                                  },
+                                  child: Material(
+                                    borderRadius: BorderRadius.circular(20),
+                                    elevation: 5,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(20),
+                                          color: Colors.deepOrangeAccent
+                                      ),
+                                      width: Get.width,
+                                      height: Get.height * 0.075,
+                                      child: Center(
+                                        child: Text(
+                                          "Add To Cart",
+                                          style: GoogleFonts.openSans(color: Colors.white, fontSize: 22),
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ),
-                            )
+                                )
+                              : InkWell(
+                                  onTap: (){
+                                    Get.defaultDialog(
+                                      title: "Pengumuman",
+                                      middleText: "Stok barang sudah habis"
+                                    );
+                                  },
+                                  child: Material(
+                                    borderRadius: BorderRadius.circular(20),
+                                    elevation: 5,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(20),
+                                          color: Colors.deepOrangeAccent
+                                      ),
+                                      width: Get.width,
+                                      height: Get.height * 0.075,
+                                      child: Center(
+                                        child: Text(
+                                          "Add To Cart",
+                                          style: GoogleFonts.openSans(color: Colors.white, fontSize: 22),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                )
                       ],
                     ),
                   );

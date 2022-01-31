@@ -23,21 +23,41 @@ class HomeView extends GetView<HomeController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    InkWell(
-                      onTap: (){
-                        Get.toNamed(Routes.CART);
-                      },
-                      child: Container(
-                        width: Get.height * 0.04901960784,
-                        height: Get.height * 0.04901960784,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.grey.withOpacity(0.2)
+                    Row(
+                      children: [
+                        InkWell(
+                          onTap: (){
+                            Get.toNamed(Routes.CART);
+                          },
+                          child: Container(
+                            width: Get.height * 0.04901960784,
+                            height: Get.height * 0.04901960784,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.grey.withOpacity(0.2)
+                            ),
+                            child: Center(
+                              child: Icon(LineIcons.shoppingCart),
+                            ),
+                          ),
                         ),
-                        child: Center(
-                          child: Icon(LineIcons.shoppingCart),
-                        ),
-                      ),
+                        InkWell(
+                          onTap: (){
+                            Get.toNamed(Routes.CHECKOUT);
+                          },
+                          child: Container(
+                            width: Get.height * 0.04901960784,
+                            height: Get.height * 0.04901960784,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.grey.withOpacity(0.2)
+                            ),
+                            child: Center(
+                              child: Icon(LineIcons.wavyMoneyBill),
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                     InkWell(
                       onTap: (){},
