@@ -21,12 +21,6 @@ class HomeController extends GetxController  with SingleGetTickerProviderMixin {
     print(Get.height);
   }
 
-  Future<QuerySnapshot<Object?>> getDataUser()async{
-    CollectionReference user = firestore.collection('users');
-
-    return user.where('uid', isEqualTo: authC.box.read('uid')).get();
-  }
-
   Stream<QuerySnapshot<Object?>> streamDataUser(){
     CollectionReference user = firestore.collection('users');
 
@@ -36,24 +30,24 @@ class HomeController extends GetxController  with SingleGetTickerProviderMixin {
   Stream<QuerySnapshot<Object?>> streamProductBaju(){
     CollectionReference products = firestore.collection('products');
 
-    return products.where('kategori', isEqualTo: 'baju').snapshots();
+    return products.where('kategori', isEqualTo: 'baju').orderBy('created_at').snapshots();
   }
 
   Stream<QuerySnapshot<Object?>> streamProductKomputer(){
     CollectionReference products = firestore.collection('products');
 
-    return products.where('kategori', isEqualTo: 'komputer').snapshots();
+    return products.where('kategori', isEqualTo: 'komputer').orderBy('created_at').snapshots();
   }
 
   Stream<QuerySnapshot<Object?>> streamProductLaptop(){
     CollectionReference products = firestore.collection('products');
 
-    return products.where('kategori', isEqualTo: 'laptop').snapshots();
+    return products.where('kategori', isEqualTo: 'laptop').orderBy('created_at').snapshots();
   }
 
   Stream<QuerySnapshot<Object?>> streamProductGame(){
     CollectionReference products = firestore.collection('products');
 
-    return products.where('kategori', isEqualTo: 'game').snapshots();
+    return products.where('kategori', isEqualTo: 'game').orderBy('created_at').snapshots();
   }
 }

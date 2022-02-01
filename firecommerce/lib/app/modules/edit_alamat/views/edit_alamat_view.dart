@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -47,133 +48,144 @@ class EditAlamatView extends GetView<EditAlamatController> {
               ),
               SizedBox(height: 20,),
               Expanded(
-                  child: Container(
-                    child: ListView(
-                      children: [
-                        Container(
-                          child: Column(
-                            children: [
-                              Text(
-                                "Provinsi",
-                                style: GoogleFonts.openSans(fontWeight: FontWeight.w600, fontSize: 18),
-                              ),
-                              SizedBox(height: 8,),
-                              TextFormField(
-                                decoration: InputDecoration(
-                                    labelText: "Provinsi",
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10)
-                                    )
+                  child: StreamBuilder<DocumentSnapshot<Object?>>(
+                      stream: controller.streamAlamat(Get.arguments),
+                      builder: (context, snapshot){
+                        if(snapshot.connectionState == ConnectionState.active){
+                          var data = snapshot.data!.data() as Map<String, dynamic>;
+                          controller.provinsi.text = data["provinsi"];
+                          controller.kabkot.text = data["kab_kot"];
+                          controller.kec.text = data["kec"];
+                          controller.kodepos.text = data["kodepos"];
+                          controller.detail.text = data["detail"];
+                          return Container(
+                            child: ListView(
+                              children: [
+                                Container(
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "Provinsi",
+                                        style: GoogleFonts.openSans(fontWeight: FontWeight.w600, fontSize: 18),
+                                      ),
+                                      SizedBox(height: 8,),
+                                      TextFormField(
+                                        decoration: InputDecoration(
+                                            border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.circular(10)
+                                            )
+                                        ),
+                                        controller: controller.provinsi,
+                                        style: GoogleFonts.openSans(),
+                                      )
+                                    ],
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                  ),
                                 ),
-                                controller: controller.provinsi,
-                                style: GoogleFonts.openSans(),
-                              )
-                            ],
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                          ),
-                        ),
-                        SizedBox(height: 10,),
-                        Container(
-                          child: Column(
-                            children: [
-                              Text(
-                                "Kabupaten / Kota",
-                                style: GoogleFonts.openSans(fontWeight: FontWeight.w600, fontSize: 18),
-                              ),
-                              SizedBox(height: 8,),
-                              TextFormField(
-                                decoration: InputDecoration(
-                                    labelText: "Kabupaten / Kota",
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10)
-                                    )
+                                SizedBox(height: 10,),
+                                Container(
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "Kabupaten / Kota",
+                                        style: GoogleFonts.openSans(fontWeight: FontWeight.w600, fontSize: 18),
+                                      ),
+                                      SizedBox(height: 8,),
+                                      TextFormField(
+                                        decoration: InputDecoration(
+                                            border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.circular(10)
+                                            )
+                                        ),
+                                        controller: controller.kabkot,
+                                        style: GoogleFonts.openSans(),
+                                      )
+                                    ],
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                  ),
                                 ),
-                                controller: controller.kabkot,
-                                style: GoogleFonts.openSans(),
-                              )
-                            ],
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                          ),
-                        ),
-                        SizedBox(height: 10,),
-                        Container(
-                          child: Column(
-                            children: [
-                              Text(
-                                "Kecamatan",
-                                style: GoogleFonts.openSans(fontWeight: FontWeight.w600, fontSize: 18),
-                              ),
-                              SizedBox(height: 8,),
-                              TextFormField(
-                                decoration: InputDecoration(
-                                    labelText: "Kecamatan",
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10)
-                                    )
+                                SizedBox(height: 10,),
+                                Container(
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "Kecamatan",
+                                        style: GoogleFonts.openSans(fontWeight: FontWeight.w600, fontSize: 18),
+                                      ),
+                                      SizedBox(height: 8,),
+                                      TextFormField(
+                                        decoration: InputDecoration(
+                                            border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.circular(10)
+                                            )
+                                        ),
+                                        controller: controller.kec,
+                                        style: GoogleFonts.openSans(),
+                                      )
+                                    ],
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                  ),
                                 ),
-                                controller: controller.kec,
-                                style: GoogleFonts.openSans(),
-                              )
-                            ],
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                          ),
-                        ),
-                        SizedBox(height: 10,),
-                        Container(
-                          child: Column(
-                            children: [
-                              Text(
-                                "Kode Pos",
-                                style: GoogleFonts.openSans(fontWeight: FontWeight.w600, fontSize: 18),
-                              ),
-                              SizedBox(height: 8,),
-                              TextFormField(
-                                decoration: InputDecoration(
-                                    labelText: "Kode Pos",
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10)
-                                    )
+                                SizedBox(height: 10,),
+                                Container(
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "Kode Pos",
+                                        style: GoogleFonts.openSans(fontWeight: FontWeight.w600, fontSize: 18),
+                                      ),
+                                      SizedBox(height: 8,),
+                                      TextFormField(
+                                        decoration: InputDecoration(
+                                            border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.circular(10)
+                                            )
+                                        ),
+                                        controller: controller.kodepos,
+                                        style: GoogleFonts.openSans(),
+                                      )
+                                    ],
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                  ),
                                 ),
-                                controller: controller.kodepos,
-                                style: GoogleFonts.openSans(),
-                              )
-                            ],
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                          ),
-                        ),
-                        SizedBox(height: 10,),
-                        Container(
-                          child: Column(
-                            children: [
-                              Text(
-                                "Detail Alamat",
-                                style: GoogleFonts.openSans(fontWeight: FontWeight.w600, fontSize: 18),
-                              ),
-                              SizedBox(height: 8,),
-                              TextFormField(
-                                keyboardType: TextInputType.multiline,
-                                maxLines: 4,
-                                decoration: InputDecoration(
-                                    labelText: "Detail Alamat",
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10)
-                                    )
+                                SizedBox(height: 10,),
+                                Container(
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "Detail Alamat",
+                                        style: GoogleFonts.openSans(fontWeight: FontWeight.w600, fontSize: 18),
+                                      ),
+                                      SizedBox(height: 8,),
+                                      TextFormField(
+                                        keyboardType: TextInputType.multiline,
+                                        maxLines: 4,
+                                        decoration: InputDecoration(
+                                            border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.circular(10)
+                                            )
+                                        ),
+                                        controller: controller.detail,
+                                        style: GoogleFonts.openSans(),
+                                      )
+                                    ],
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                  ),
                                 ),
-                                controller: controller.detail,
-                                style: GoogleFonts.openSans(),
-                              )
-                            ],
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                          ),
-                        ),
-                      ],
-                    ),
+                              ],
+                            ),
+                          );
+                        }
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
                   )
               ),
               SizedBox(height: 10,),
               InkWell(
                 onTap: (){
-                  Get.back();
+                  controller.editAlamat(Get.arguments, controller.provinsi.text, controller.kabkot.text, controller.kec.text, controller.kodepos.text, controller.detail.text);
                 },
                 child: Material(
                   borderRadius: BorderRadius.circular(20),

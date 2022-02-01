@@ -75,11 +75,12 @@ class PilihAlamatView extends GetView<PilihAlamatController> {
                                           crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
                                             Radio<String>(
-                                                value: "alamat",
+                                                value: "${data["detail"]}",
                                                 activeColor: Colors.deepOrangeAccent,
                                                 groupValue: controller.alamat.value,
                                                 onChanged: (String? value){
-                                                  Get.back();
+                                                  controller.alamat.value = value!;
+                                                  Get.back(result: controller.alamat.value);
                                                 }
                                             ),
                                             Expanded(
@@ -88,10 +89,10 @@ class PilihAlamatView extends GetView<PilihAlamatController> {
                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                     children: [
-                                                      Text("Judul", style: GoogleFonts.inter(fontWeight: FontWeight.w700, fontSize: 14, color: Color(0xFF40484E)),),
+                                                      Text("${data["kec"]}, ${data["kab_kot"]}, ${data["provinsi"]}", style: GoogleFonts.inter(fontWeight: FontWeight.w700, fontSize: 14, color: Color(0xFF40484E)),),
                                                       SizedBox(height: 5,),
                                                       Text(
-                                                        "ALamat",
+                                                        "${data["detail"]}",
                                                         style: GoogleFonts.inter(fontWeight: FontWeight.w400, fontSize: 12, color: Color(0xFF40484E)),
                                                         maxLines: 2,
                                                         overflow: TextOverflow.ellipsis,
@@ -111,13 +112,14 @@ class PilihAlamatView extends GetView<PilihAlamatController> {
                                                   children: [
                                                     InkWell(
                                                         onTap: (){
-                                                          Get.toNamed(Routes.EDIT_ALAMAT);
+                                                          Get.toNamed(Routes.EDIT_ALAMAT, arguments: listAllDocs[index].id);
                                                         },
                                                         child: Icon(LineIcons.edit)
                                                     ),
                                                     SizedBox(width: 10,),
                                                     InkWell(
                                                         onTap: (){
+                                                          controller.hapus(listAllDocs[index].id);
                                                         },
                                                         child: Icon(Icons.delete)
                                                     ),

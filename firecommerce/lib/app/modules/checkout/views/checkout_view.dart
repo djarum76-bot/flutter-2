@@ -76,25 +76,27 @@ class CheckoutView extends GetView<CheckoutController> {
                                                         height: Get.height * 0.09,
                                                         child: Align(
                                                           alignment: Alignment.centerLeft,
-                                                          child: ListTile(
-                                                            onTap: (){
-                                                              Get.toNamed(Routes.PILIH_ALAMAT);
-                                                            },
-                                                            title: Text(
-                                                              "Pilih Alamat Tujuan",
-                                                              style: GoogleFonts.inter(fontWeight: FontWeight.w700, fontSize: 14, color: Color(0xFF40484E)),
-                                                            ),
-                                                            leading: Container(
-                                                              decoration: BoxDecoration(
-                                                                  color: Colors.grey.withOpacity(0.2),
-                                                                  borderRadius: BorderRadius.circular(10)
+                                                          child: Obx((){
+                                                            return ListTile(
+                                                              onTap: ()async{
+                                                                controller.alamat.value = await Get.toNamed(Routes.PILIH_ALAMAT);
+                                                              },
+                                                              title: Text(
+                                                                controller.alamat.value == "" ? "Pilih Alamat Tujuan" : "${controller.alamat.value}",
+                                                                style: GoogleFonts.inter(fontWeight: FontWeight.w700, fontSize: 14, color: Color(0xFF40484E)),
                                                               ),
-                                                              child: Icon(LineIcons.mapMarker),
-                                                              height: Get.width * 0.1,
-                                                              width: Get.width * 0.1,
-                                                            ),
-                                                            trailing: Icon(Icons.arrow_forward_ios),
-                                                          ),
+                                                              leading: Container(
+                                                                decoration: BoxDecoration(
+                                                                    color: Colors.grey.withOpacity(0.2),
+                                                                    borderRadius: BorderRadius.circular(10)
+                                                                ),
+                                                                child: Icon(LineIcons.mapMarker),
+                                                                height: Get.width * 0.1,
+                                                                width: Get.width * 0.1,
+                                                              ),
+                                                              trailing: Icon(Icons.arrow_forward_ios),
+                                                            );
+                                                          }),
                                                         ),
                                                       )
                                                     ],

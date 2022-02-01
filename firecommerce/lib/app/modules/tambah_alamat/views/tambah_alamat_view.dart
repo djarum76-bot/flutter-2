@@ -143,7 +143,7 @@ class TambahAlamatView extends GetView<TambahAlamatController> {
                           child: Column(
                             children: [
                               Text(
-                                "Detail Alamat",
+                                "Alamat Lengkap",
                                 style: GoogleFonts.openSans(fontWeight: FontWeight.w600, fontSize: 18),
                               ),
                               SizedBox(height: 8,),
@@ -169,7 +169,7 @@ class TambahAlamatView extends GetView<TambahAlamatController> {
               SizedBox(height: 10,),
               InkWell(
                 onTap: (){
-                  Get.back();
+                  controller.addAlamat(controller.provinsi.text, controller.kabkot.text, controller.kec.text, controller.kodepos.text, controller.detail.text);
                 },
                 child: Material(
                   borderRadius: BorderRadius.circular(20),

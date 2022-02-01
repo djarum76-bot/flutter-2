@@ -13,6 +13,6 @@ class ProdukSayaController extends GetxController {
   Stream<QuerySnapshot<Object?>> streamProduct(){
     CollectionReference products = firestore.collection('products');
 
-    return products.where('uid_penjual', isEqualTo: authC.box.read('uid')).snapshots();
+    return products.where('uid_penjual', isEqualTo: authC.box.read('uid')).orderBy('created_at').snapshots();
   }
 }

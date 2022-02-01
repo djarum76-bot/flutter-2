@@ -12,6 +12,11 @@ class PilihAlamatController extends GetxController {
   Stream<QuerySnapshot<Object?>> streamAlamat(){
     CollectionReference address = firestore.collection('address');
 
-    return address.where('uid', isEqualTo: '${authC.box.read('uid')}').snapshots();
+    return address.where('uid', isEqualTo: '${authC.box.read('uid')}').orderBy('created_at').snapshots();
+  }
+
+  hapus(String docID)async{
+    DocumentReference address = firestore.collection('address').doc(docID);
+    await address.delete();
   }
 }

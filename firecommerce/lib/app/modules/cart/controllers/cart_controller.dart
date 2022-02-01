@@ -14,7 +14,7 @@ class CartController extends GetxController {
   Stream<QuerySnapshot<Object?>> streamCart(){
     CollectionReference carts = firestore.collection('carts');
 
-    return carts.where('uid_pembeli', isEqualTo: '${authC.box.read('uid')}').where('status', isEqualTo: 'Belum Bayar').where('tahap', isEqualTo: 1).snapshots();
+    return carts.where('uid_pembeli', isEqualTo: '${authC.box.read('uid')}').where('status', isEqualTo: 'Belum Bayar').where('tahap', isEqualTo: 1).orderBy('created_at').snapshots();
   }
 
   hapus(String docID)async{
