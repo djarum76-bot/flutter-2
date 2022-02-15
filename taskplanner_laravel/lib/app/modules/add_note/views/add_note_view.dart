@@ -59,7 +59,7 @@ class AddNoteView extends GetView<AddNoteController> {
                 height: Get.height * 0.07,
                 child: ElevatedButton(
                   onPressed: (){
-                    Get.back();
+                    controller.addNote();
                   },
                   child: Text(
                     "Add Note",

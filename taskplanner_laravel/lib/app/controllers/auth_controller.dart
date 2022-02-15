@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:taskplanner/app/models/home_task_model.dart';
+import 'package:taskplanner/app/models/note_models.dart';
+import 'package:taskplanner/app/models/notes_model.dart';
 import 'package:taskplanner/app/models/task_model.dart';
 import 'package:taskplanner/app/models/tasks_model.dart';
 import 'package:taskplanner/app/models/user_model.dart';
@@ -24,4 +26,9 @@ class AuthController extends GetxController {
   final homeTask = HomeTaskModel().obs;
 
   final task = TaskModel().obs;
+
+  final notes = NotesModel().obs;
+  final notes2 = NotesModel().obs;
+
+  final note = NoteModel().obs;
 }

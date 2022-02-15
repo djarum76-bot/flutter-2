@@ -75,33 +75,51 @@ class NoteView extends GetView<NoteController> {
               Expanded(
                   child: Container(
                     padding: EdgeInsets.all(Get.height * 0.015),
-                    child: GridView.builder(
-                        itemCount: 10,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 1,
-                          mainAxisSpacing: 20,
-                          crossAxisSpacing: 20,
-                        ),
-                        itemBuilder: (context, index){
-                          return InkWell(
-                            onTap: (){
-                              Get.toNamed(Routes.DETAIL_NOTE);
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Color(0xffFABB51),
-                                  borderRadius: BorderRadius.circular(30)
-                              ),
-                              padding: EdgeInsets.all(Get.height * 0.02),
-                              child: Align(
-                                alignment: Alignment.bottomLeft,
-                                child: Text(
-                                  "Utang",
-                                  style: GoogleFonts.righteous(fontSize: 22, color: Colors.white),
-                                ),
-                              ),
-                            ),
+                    child: FutureBuilder(
+                        future: controller.getNotes(),
+                        builder: (context, snapshot){
+                          if(snapshot.connectionState == ConnectionState.done){
+                            return Obx((){
+                              return controller.jumlahNote.value != 0
+                                  ? GridView.builder(
+                                        itemCount: controller.jumlahNote.value,
+                                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 2,
+                                          childAspectRatio: 1,
+                                          mainAxisSpacing: 20,
+                                          crossAxisSpacing: 20,
+                                        ),
+                                        itemBuilder: (context, index){
+                                          return InkWell(
+                                            onTap: (){
+                                              Get.toNamed(Routes.DETAIL_NOTE, arguments: controller.idNote.value[index]);
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  color: Color(0xffFABB51),
+                                                  borderRadius: BorderRadius.circular(30)
+                                              ),
+                                              padding: EdgeInsets.all(Get.height * 0.02),
+                                              child: Align(
+                                                alignment: Alignment.bottomLeft,
+                                                child: Text(
+                                                  "${controller.judulNote.value[index]}",
+                                                  style: GoogleFonts.righteous(fontSize: 22, color: Colors.white),
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                    )
+                                  : Center(
+                                      child: Text(
+                                          "Belum ada catatan"
+                                      ),
+                                    );
+                            });
+                          }
+                          return Center(
+                            child: CircularProgressIndicator(),
                           );
                         }
                     ),
