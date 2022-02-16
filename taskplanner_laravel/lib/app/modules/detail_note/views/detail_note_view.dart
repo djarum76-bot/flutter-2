@@ -101,7 +101,7 @@ class DetailNoteView extends GetView<DetailNoteController> {
                             Expanded(
                                 child: ElevatedButton(
                                   onPressed: (){
-                                    Get.toNamed(Routes.EDIT_NOTE);
+                                    Get.toNamed(Routes.EDIT_NOTE, arguments: controller.id.value);
                                   },
                                   child: Text(
                                     "Edit Note",

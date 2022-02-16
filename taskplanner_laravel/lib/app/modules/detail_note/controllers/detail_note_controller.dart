@@ -77,8 +77,8 @@ class DetailNoteController extends GetxController {
     final data = response.data;
 
     if(response.statusCode == 200){
-      noteC.getNotes();
-      homeC.getNotes();
+      await homeC.getNotes();
+      await noteC.getNotes();
       Get.back();
     }else{
       Dio.FormData formData = Dio.FormData.fromMap({
