@@ -1,0 +1,43 @@
+name: resep
+version: 1.0.0+1
+publish_to: none
+description: A new Flutter project.
+environment: 
+  sdk: '>=2.15.1 <3.0.0'
+
+dependencies: 
+  cupertino_icons: ^1.0.2
+  dio: 4.0.4
+  get: 4.6.1
+  line_icons: 2.0.1
+  google_fonts: 2.2.0
+  shimmer: ^2.0.0
+  card_swiper: ^2.0.1
+  flutter: 
+    sdk: flutter
+
+dev_dependencies: 
+  flutter_lints: ^1.0.0
+  flutter_test: 
+    sdk: flutter
+
+flutter:
+  assets:
+    - asset/
+  fonts:
+    - family: SFProDisplay
+      fonts:
+        - asset: fonts/SF-Pro-Display-Regular.otf
+        - asset: fonts/SF-Pro-Display-Medium.otf
+          weight: 500
+        - asset: fonts/SF-Pro-Display-Bold.otf
+          weight: 700
+    - family: SFProText
+      fonts:
+        - asset: fonts/SF-Pro-Text-Regular.otf
+        - asset: fonts/SF-Pro-Text-Medium.otf
+          weight: 500
+        - asset: fonts/SF-Pro-Text-Semibold.otf
+          weight: 600
+  uses-material-design: true
+
